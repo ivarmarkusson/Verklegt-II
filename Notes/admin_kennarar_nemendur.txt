@@ -1,0 +1,37 @@
+Admin
+-----------
+CreateCourse
+- Hér bır admin til námskeiğ
+CreateUsers
+- Hér bır admin til notendur (kennara og nemendur)
+EditUsers
+- Hér linkar hann notendur viğ námskeiğ
+- Hér getur admin látiğ kennara veriğ admin
+DeleteUsers
+- Hér getur admin delete'ağ notendum
+
+Kennarar
+-----------
+CreateAssignmet
+- Hér getur kennari búiğ til verkefni
+- Hér getur kennari búiğ til hlutverkefni
+EditAssignment
+- Hér getur kennari breytt verkefni
+DeleteAssignment
+- Hér getur kennari eytt verkefni
+ViewAssignments
+- Hér getur kennari skoğağ öll verkefni sem
+  nemendur hafa skilağ inn
+	- Hvort şağ sé accepted eğa ekki
+- Hér getur kennari skoğağ lausnir verkefna frá nemendum
+- Hér getur kennari downloadağ skrá sem nemendur skila
+
+Nemendur
+-----------
+SubmitAssignment
+- Hér geta nemendur submitağ verkefnum
+ViewAssignments
+- Hér geta nemendur skoğağ sín verkefni
+- Hér geta nemendur sé hvort şağ sé accepted eğa ekki
+ViewRanking
+- Hér geta nemendur sé hvar verkefni er rankağ
