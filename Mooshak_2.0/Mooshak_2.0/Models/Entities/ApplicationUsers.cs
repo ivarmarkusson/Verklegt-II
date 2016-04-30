@@ -9,6 +9,7 @@ namespace Mooshak_2._0.Models.Entities
 	{
 		public int ID { set; get; }
 		public string Username { set; get; }
+		public string Email { set; get; }
 		public string Fullname { set; get; }
 		public bool IsAdmin { set; get; }
 		public string Password { set; get; }
