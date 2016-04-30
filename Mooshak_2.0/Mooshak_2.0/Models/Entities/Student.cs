@@ -8,5 +8,10 @@ namespace Mooshak_2._0.Models.Entities
 	public class Student : ApplicationUsers
 	{
 		// TODO - Add properties
+		// Listi af verkefnum
+		// listi af comments
+		// Bunch of lists
+		// something more
+		// number of submissions
 	}
 }

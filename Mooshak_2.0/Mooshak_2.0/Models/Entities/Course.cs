@@ -5,13 +5,9 @@ using System.Web;
 
 namespace Mooshak_2._0.Models.Entities
 {
-	public class Teacher : ApplicationUsers
+	public class Course
 	{
-
-		// TODO - Add properties
-		// List of courses
-		// List of students
-		// Something more
-
+		public int ID { set; get; }
+		public string Name { set; get; }
 	}
 }
