@@ -32,5 +32,7 @@ namespace Mooshak_2._0.Models
         {
             return new ApplicationDbContext();
         }
-    }
+
+		public System.Data.Entity.DbSet<Mooshak_2._0.Models.Entities.Teacher> Teachers { get; set; }
+	}
 }
