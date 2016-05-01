@@ -1,4 +1,7 @@
-﻿using Microsoft.Owin;
+﻿using AutoMapper;
+using Microsoft.Owin;
+using Mooshak_2._0.Controllers;
+using Mooshak_2._0.Models.Entities;
 using Owin;
 
 [assembly: OwinStartupAttribute(typeof(Mooshak_2._0.Startup))]
@@ -9,6 +12,12 @@ namespace Mooshak_2._0
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
+
+            // Mapper config
+            Mapper.Initialize(config =>
+            {
+                config.CreateMap<Course, CourseViewModel>().ReverseMap();
+            });
         }
     }
 }

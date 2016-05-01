@@ -1,19 +1,29 @@
 ﻿
+@model List<Mooshak_2._0.Controllers.CourseViewModel>
 @{
     ViewBag.Title = "CreateCourse";
 }
 
+
 <h2>CreateCourse</h2>
 
-<form>
-	<div class="form-group">
-		<label for="addCourse">Course Name:</label>
-		<input type="text" class="form-control" id="addCourse">
-	</div>
-	<div class="checkbox">
-		<label>
-			<input type="checkbox"> Check me out
-		</label>
-	</div>
-	<button type="submit" class="btn btn-default">Create Course</button>
-</form>
+@using (Html.BeginForm("CreateCourse", "Admin", FormMethod.Post))
+{
+    <div class="form-group">
+        <label>
+            Course Name:
+            <input type="text" class="form-control" id="txtName" name="Name">
+        </label>
+    </div>
+
+    <button type="submit" class="btn btn-default">Create Course</button>
+}
+
+<table>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Name</td>
+        </tr>
+    }
+</table>
