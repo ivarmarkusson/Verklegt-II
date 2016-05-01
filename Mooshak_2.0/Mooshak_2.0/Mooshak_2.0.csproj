@@ -202,6 +202,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AssignmentsController.cs" />
+    <Compile Include="Controllers\TeacherController.cs" />
     <Compile Include="Models\ViewModels\CourseViewModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -291,6 +292,12 @@
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\CreateCourse.cshtml" />
     <Content Include="Views\Admin\AddUser.cshtml" />
+    <Content Include="Views\Shared\_TeacherView.cshtml" />
+    <Content Include="Views\Teacher\Index.cshtml" />
+    <Content Include="Views\Teacher\CreateAssignment.cshtml" />
+    <Content Include="Views\Teacher\ReviewAssignment.cshtml" />
+    <Content Include="Views\Teacher\Assignments.cshtml" />
+    <Content Include="Views\Teacher\Settings.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
