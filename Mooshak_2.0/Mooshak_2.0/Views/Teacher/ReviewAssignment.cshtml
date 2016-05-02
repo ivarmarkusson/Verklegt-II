@@ -8,7 +8,7 @@
     <legend>Review Assignment</legend>
 
     <div class="form-group">
-        <select>
+        <select class="form-control">
             <!--Örugglega einhver foreach lykkja sem á að koma hér-->
             <option>Assignment 1</option>
             <option>Assignment 2</option>
@@ -16,33 +16,28 @@
         </select>
     </div>
 
-    <div class="form-group">
-        <input type="search" name="searchInput" placeholder="Search...">
-    </div>
+		<div class="form-group">
+			<input type="search" class="form-control" name="searchInput" placeholder="Search...">
+		</div>
+
 </fieldset>
 }
 
 <div class="table-responsive">
     <table class="table table-striped">
         <thead>
-            <td>Status</td>
-            <td>Username</td>
-            <td>Result</td>
-            <td>Number of Submissions</td>
-            <td>Time</td>
-            <td>Milestone</td>
-            <td>File</td>
+            <th>Status</th>
+            <th>Username</th>
+            <th>Result</th>
+            <th>Number of Submissions</th>
+            <th>Time</th>
+            <th>Milestone</th>
+            <th>File</th>
         </thead>
         <tbody>
             <!--Foreach stuff-->
-            <tr>
-                <td>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" id="blankCheckbox" value="option1" aria-label="...">
-                        </label>
-                    </div>
-                </td>
+            <tr class="success">
+                <td><input type="checkbox" id="blankCheckbox" value="option1" aria-label="..."> </td>
                 <td>Gulli</td>
                 <td>Accepted</td>
                 <td>1</td>
@@ -54,6 +49,48 @@
                     </a>
                 </td>
             </tr>
+
+			<tr class="danger">
+				<td><input type="checkbox" id="blankCheckbox" value="option1" aria-label="..."> </td>
+				<td>Kalli</td>
+				<td>Error</td>
+				<td>1</td>
+				<td>12:59</td>
+				<td>A</td>
+				<td>
+					<a href="~/Content/Pictures/ExampleOfaFile.png" download>
+						<img border="0" src="~/Content/Pictures/ExampleOfaFile.png" alt="file" width="15" height="20">
+					</a>
+				</td>
+			</tr>
+
+			<tr class="danger">
+				<td><input type="checkbox" id="blankCheckbox" value="option1" aria-label="..."> </td>
+				<td>Siggi</td>
+				<td>Error</td>
+				<td>1</td>
+				<td>12:59</td>
+				<td>A</td>
+				<td>
+					<a href="~/Content/Pictures/ExampleOfaFile.png" download>
+						<img border="0" src="~/Content/Pictures/ExampleOfaFile.png" alt="file" width="15" height="20">
+					</a>
+				</td>
+			</tr>
+
+			<tr class="danger">
+				<td><input type="checkbox" id="blankCheckbox" value="option1" aria-label="..."> </td>
+				<td>Nonni</td>
+				<td>Error</td>
+				<td>1</td>
+				<td>12:59</td>
+				<td>A</td>
+				<td>
+					<a href="~/Content/Pictures/ExampleOfaFile.png" download>
+						<img border="0" src="~/Content/Pictures/ExampleOfaFile.png" alt="file" width="15" height="20">
+					</a>
+				</td>
+			</tr>
         </tbody>
     </table>
 </div>
