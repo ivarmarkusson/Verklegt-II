@@ -1,0 +1,117 @@
+﻿@{
+	ViewBag.Title = "AddUser";
+}
+
+
+@using (Html.BeginForm("CreateUser", "Admin", FormMethod.Post))
+{
+	<fieldset>
+		<legend>Add User</legend>
+		<div class="form-group">
+			<label>
+				Full name:
+				<input type="text" class="form-control" name="FullName">
+			</label>
+		</div>
+		<div class="form-group">
+			<label>
+				Username:
+				<input type="text" class="form-control" name="UserName">
+			</label>
+		</div>
+		<div class="form-group">
+			<label>
+				Email:
+				<input type="email" class="form-control" name="Email">
+			</label>
+		</div>
+		<div class="form-group">
+			<label>
+				Password:
+				<input type="password" class="form-control" name="Password">
+			</label>
+		</div>
+
+
+		@*<div class="form-group">
+			<b>Choose Courses:</b><br>
+			@foreach (var item in Model)
+			{
+				<label class="checkbox-inline"><input type="checkbox" value="@item.ID">@item.Name</label>
+			}
+		</div>*@
+
+		<div class="form-group">
+
+			<b>Type of User:</b><br>
+			<label class="checkbox-inline"><input type="checkbox" value="0" checked>Admin</label>
+			<label class="checkbox-inline"><input type="checkbox" value="1">Teacher</label>
+			<label class="checkbox-inline"><input type="checkbox" value="2">Student</label>
+		</div>
+
+		<button type="submit" class="btn btn-default">Create User</button>
+	</fieldset>
+}
+
+
+<h2>All Users</h2>
+
+<div class="table-responsive">
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>Header</th>
+				<th>Header</th>
+				<th>Header</th>
+				<th>Header</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>1,003</td>
+				<td>Integer</td>
+				<td>nec</td>
+				<td>odio</td>
+				<td>Praesent</td>
+			</tr>
+			<tr>
+				<td>1,003</td>
+				<td>libero</td>
+				<td>Sed</td>
+				<td>cursus</td>
+				<td>ante</td>
+			</tr>
+			<tr>
+				<td>1,004</td>
+				<td>dapibus</td>
+				<td>diam</td>
+				<td>Sed</td>
+				<td>nisi</td>
+			</tr>
+			<tr>
+				<td>1,005</td>
+				<td>Nulla</td>
+				<td>quis</td>
+				<td>sem</td>
+				<td>at</td>
+			</tr>
+			<tr>
+				<td>1,006</td>
+				<td>nibh</td>
+				<td>elementum</td>
+				<td>imperdiet</td>
+				<td>Duis</td>
+			</tr>
+			<tr>
+				<td>1,007</td>
+				<td>sagittis</td>
+				<td>ipsum</td>
+				<td>Praesent</td>
+				<td>mauris</td>
+			</tr>
+
+
+		</tbody>
+	</table>
+</div>

@@ -5,13 +5,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Mooshak_2._0.Services
+namespace Mooshak_2._0.Repositories
 {
-    public class AssignmentsService
+    public class AssignmentRepository
     {
         private ApplicationDbContext _db;
 
-        public AssignmentsService()
+        public AssignmentRepository()
         {
             _db = new ApplicationDbContext();
         }

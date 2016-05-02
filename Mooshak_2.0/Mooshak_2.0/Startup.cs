@@ -17,7 +17,8 @@ namespace Mooshak_2._0
             Mapper.Initialize(config =>
             {
                 config.CreateMap<Course, CourseViewModel>().ReverseMap();
-            });
+				config.CreateMap<ApplicationUser, ApplicationUserViewModel>().ReverseMap();
+			});
         }
     }
 }

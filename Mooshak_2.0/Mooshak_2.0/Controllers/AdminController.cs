@@ -3,25 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Mooshak_2._0.Services;
+using Mooshak_2._0.Repositories;
+using Mooshak_2._0.Models.Entities;
 
 namespace Mooshak_2._0.Controllers
 {
     public class AdminController : Controller
     {
-        private readonly CourseService _repository = new CourseService();
+        private readonly CourseRepository _courseRepository = new CourseRepository();
+		private readonly ApplicationUserRepository _userRepository = new ApplicationUserRepository();
 
-       
-
-        // GET: Admin
-        public ActionResult Index()
+		// GET: Admin
+		public ActionResult Index()
         {
             return View();
         }
 
+		#region Courses
+
 		public ActionResult CreateCourse()
 		{
-            List<CourseViewModel> list = _repository.GetCourses();
+            List<CourseViewModel> list = _courseRepository.GetCourses();
             return View(list);
 		}
 
@@ -30,18 +32,33 @@ namespace Mooshak_2._0.Controllers
         {
             if (ModelState.IsValid)
             {
-                _repository.Add(model);
-                // do your stuff like: save to database and redirect to required page.
+                _courseRepository.Add(model);
             }
 
             // Fetch the list again
-            List<CourseViewModel> list = _repository.GetCourses();
+            List<CourseViewModel> list = _courseRepository.GetCourses();
             return View(list);
         }
 
-        public ActionResult AddUser()
-		{
+		#endregion
+
+		#region Users
+		public ActionResult CreateUser()
+		{		
 			return View();
 		}
+
+		[HttpPost]
+		public ActionResult CreateUser(ApplicationUserViewModel model)
+		{
+			if(ModelState.IsValid)
+			{
+				_userRepository.Add(model);
+			}
+
+			return View();
+		}
+
+		#endregion
 	}
 }

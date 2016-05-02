@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Mooshak_2._0.Models.Entities
 {
-	public class Student : ApplicationUsers
+	public class Student : ApplicationUser
 	{
 		// TODO - Add properties
 		// Listi af verkefnum

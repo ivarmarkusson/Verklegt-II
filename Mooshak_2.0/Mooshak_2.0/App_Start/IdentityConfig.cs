@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Mooshak_2._0.Models;
+using Mooshak_2._0.Models.Entities;
 
 namespace Mooshak_2._0
 {

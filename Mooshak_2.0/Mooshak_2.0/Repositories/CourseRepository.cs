@@ -8,13 +8,13 @@ using Mooshak_2._0.Controllers;
 using Mooshak_2._0.Models;
 using Mooshak_2._0.Models.Entities;
 
-namespace Mooshak_2._0.Services
+namespace Mooshak_2._0.Repositories
 {
-    public class CourseService
+    public class CourseRepository 
     {
         private ApplicationDbContext _db;
 
-        public CourseService()
+        public CourseRepository()
         {
             _db = new ApplicationDbContext();
         }

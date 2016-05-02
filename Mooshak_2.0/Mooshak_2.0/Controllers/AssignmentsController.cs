@@ -1,4 +1,4 @@
-﻿using Mooshak_2._0.Services;
+﻿using Mooshak_2._0.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +12,7 @@ namespace Mooshak_2._0.Controllers
 
 
 		//Test comment
-        private AssignmentsService _service = new AssignmentsService();
+        private AssignmentRepository _service = new AssignmentRepository();
         // GET: Assignments
         public ActionResult Index()
         {
