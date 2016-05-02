@@ -32,25 +32,33 @@
 			</label>
 		</div>
 
-
-		@*<div class="form-group">
-			<b>Choose Courses:</b><br>
-			@foreach (var item in Model)
-			{
-				<label class="checkbox-inline"><input type="checkbox" value="@item.ID">@item.Name</label>
-			}
-		</div>*@
-
 		<div class="form-group">
 
 			<b>Type of User:</b><br>
-			<label class="checkbox-inline"><input type="checkbox" value="0" checked>Admin</label>
+			<label class="checkbox-inline"><input type="checkbox" value="0">Admin</label>
 			<label class="checkbox-inline"><input type="checkbox" value="1">Teacher</label>
-			<label class="checkbox-inline"><input type="checkbox" value="2">Student</label>
+			<label class="checkbox-inline"><input type="checkbox" value="2" checked>Student</label>
 		</div>
+		<fieldset disabled>
+			<div class="form-group">
 
-		<button type="submit" class="btn btn-default">Create User</button>
-	</fieldset>
+				<b>Courses as Teacher:</b><br>
+				<label class="checkbox-inline"><input type="checkbox" value="0">Gagnaskipan</label>
+				<label class="checkbox-inline"><input type="checkbox" value="1">Forritun</label>
+				<label class="checkbox-inline"><input type="checkbox" value="2">Verklegt</label>
+			</div>
+		</fieldset>
+		<fieldset>
+			<div class="form-group">
+
+				<b>Courses as Student:</b><br>
+				<label class="checkbox-inline"><input type="checkbox" value="0">Gagnaskipan</label>
+				<label class="checkbox-inline"><input type="checkbox" value="1">Forritun</label>
+				<label class="checkbox-inline"><input type="checkbox" value="2">Verklegt</label>
+			</div>
+		</fieldset>
+			<button type="submit" class="btn btn-default">Create User</button>
+		</fieldset>
 }
 
 
