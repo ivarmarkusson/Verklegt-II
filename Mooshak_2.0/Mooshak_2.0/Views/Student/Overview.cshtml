@@ -5,3 +5,66 @@
 
 <h2>Overview</h2>
 
+@using (Html.BeginForm("ReviewAssignment", "Teacher", FormMethod.Get))
+{
+    <div class="table-responsive">
+        
+        <table class="table table-striped">
+            <caption>My Submitions</caption>
+            <thead>
+                <th>Number</th>
+                <th>Time</th>
+                <th>Result</th>
+            </thead>
+            <tbody>
+                <!--Foreach stuff-->
+                <tr class="danger">
+                    <td>1</td>
+                    <td>12:55</td>
+                    <td>Wrong Output</td>
+                </tr>
+                <tr class="danger">
+                    <td>2</td>
+                    <td>12:58</td>
+                    <td>Memory Error</td>
+                </tr>
+                <tr class="success">
+                    <td>3</td>
+                    <td>12:59</td>
+                    <td>Accepted</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-responsive">
+
+        <table class="table table-striped">
+            <caption>All Submitions</caption>
+            <thead>
+                <th>Number</th>
+                <th>Time</th>
+                <th>Result</th>
+            </thead>
+            <tbody>
+                <!--Foreach stuff-->
+                <tr class="danger">
+                    <td>1</td>
+                    <td>12:55</td>
+                    <td>Wrong Output</td>
+                </tr>
+                <tr class="danger">
+                    <td>2</td>
+                    <td>12:58</td>
+                    <td>Memory Error</td>
+                </tr>
+                <tr class="success">
+                    <td>3</td>
+                    <td>12:59</td>
+                    <td>Accepted</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+}
