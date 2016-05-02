@@ -6,7 +6,9 @@ using System.Web.Mvc;
 
 namespace Mooshak_2._0.Controllers
 {
-    public class TeacherController : Controller
+	//[Authorize(Roles = "Teacher")]
+	[Authorize]
+	public class TeacherController : Controller
     {
         // GET: Teacher
         public ActionResult Index()
