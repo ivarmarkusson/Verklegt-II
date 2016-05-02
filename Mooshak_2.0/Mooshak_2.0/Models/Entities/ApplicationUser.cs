@@ -25,5 +25,4 @@ namespace Mooshak_2._0.Models.Entities
 			return userIdentity;
 		}
 	}
-
 }

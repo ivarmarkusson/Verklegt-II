@@ -1,7 +1,50 @@
-﻿
-@{
-    ViewBag.Title = "CreateAssignment";
+﻿@{
+	ViewBag.Title = "CreateAssignment";
 }
+<h2>CreateAssingment</h2>
 
-<h2>CreateAssignment</h2>
-
+@using (Html.BeginForm("CreateAssignment", "Teacher", FormMethod.Post))
+{
+	<div class="form-group">
+		<label>
+			Assignment:
+			<input type="text" class="form-control" id="assignmentName" name="assignment">
+		</label>
+	</div>
+	<div class="form-group">
+		<label>
+			Name:
+			<input type="text" class="form-control" id="txtName" name="name">
+		</label>
+	</div>
+	<div class="form-group">
+		<label>
+			Email:
+			<input type="text" class="form-control" id="emailAdress" name="email">
+		</label>
+	</div>
+	<div class="form-group">
+		<label>
+			Open:
+			<input type="datetime-local" class="form-control" id="timeOpen" name="open">
+			Close:
+			<input type="datetime-local" class="form-control" id="timeClose" name="close">
+		</label>
+	</div>
+	<div class="form-group">
+		<label>
+			Language:
+			<select multiple class="form-control">
+				<option>C++</option>
+				<option>C#</option>
+			</select>
+		</label>
+	</div>
+	<div class="form-group">
+		<label>
+			Group Size:
+			<input type="text" class="form-control" id="groupSize" name="groupSize">
+		</label>
+	</div>
+	<button type="submit" class="btn btn-default">Create Assignment</button>
+}

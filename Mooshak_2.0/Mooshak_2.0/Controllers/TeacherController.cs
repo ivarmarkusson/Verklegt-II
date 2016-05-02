@@ -7,7 +7,6 @@ using System.Web.Mvc;
 namespace Mooshak_2._0.Controllers
 {
 	//[Authorize(Roles = "Teacher")]
-	[Authorize]
 	public class TeacherController : Controller
     {
         // GET: Teacher
