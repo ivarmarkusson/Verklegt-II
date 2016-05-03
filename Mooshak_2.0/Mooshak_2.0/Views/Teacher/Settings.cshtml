@@ -3,5 +3,32 @@
     ViewBag.Title = "Settings";
 }
 
-<h2>Settings</h2>
+@using (Html.BeginForm("Settings", "Teacher", FormMethod.Post))
+{
+    <fieldset>
+        <legend>Settings</legend>
+
+        <h3>Change Password</h3>
+
+        <div class="form-group">
+            <label>
+                Old Password:
+                <input type="text" class="form-control" id="txtOldPassword" name="oldPassword">
+            </label>
+            <label>
+                Confirm Old Password:
+                <input type="text" class="form-control" id="txtConfirmOldPassword" name="confirmOldPassword">
+            </label>
+            <label>
+                New Password:
+                <input type="text" class="form-control" id="txtNewPassword" name="newPassword">
+            </label>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-default">Change Settings</button>
+        </div>
+    </fieldset>
+
+}
 

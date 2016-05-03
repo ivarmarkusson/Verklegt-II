@@ -24,7 +24,12 @@ namespace Mooshak_2._0.Controllers
 			return View();
 		}
 
-		public ActionResult Settings()
+        public ActionResult Description()
+        {
+            return View();
+        }
+
+        public ActionResult Settings()
 		{
 			return View();
 		}
