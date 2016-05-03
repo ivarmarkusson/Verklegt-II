@@ -10,5 +10,8 @@ namespace Mooshak_2._0.Models.Entities
         public int ID { get; set; }
         public int CouresID { get; set; }
         public string Title { get; set; }
+		public DateTime StartTime { get; set; }
+		public DateTime EndTime { get; set; }
+
     }
 }

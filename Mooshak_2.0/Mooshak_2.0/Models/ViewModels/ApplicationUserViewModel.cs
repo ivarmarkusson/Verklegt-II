@@ -1,8 +1,6 @@
-﻿using Mooshak_2._0.Models.Entities;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Mooshak_2._0.Models.Entities
+namespace Mooshak_2._0.Models.ViewModels
 {
 	public class ApplicationUserViewModel
 	{

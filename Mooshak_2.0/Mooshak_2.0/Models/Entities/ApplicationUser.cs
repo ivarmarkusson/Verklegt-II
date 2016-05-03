@@ -14,8 +14,6 @@ namespace Mooshak_2._0.Models.Entities
 	{
 		[Required]
 		public string FullName { set; get; }
-		[Required]
-		public string Password { set; get; }
 
 		public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
 		{

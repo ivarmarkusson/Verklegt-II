@@ -2,6 +2,7 @@
 using Microsoft.Owin;
 using Mooshak_2._0.Controllers;
 using Mooshak_2._0.Models.Entities;
+using Mooshak_2._0.Models.ViewModels;
 using Owin;
 
 [assembly: OwinStartupAttribute(typeof(Mooshak_2._0.Startup))]

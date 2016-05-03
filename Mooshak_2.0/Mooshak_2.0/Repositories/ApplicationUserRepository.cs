@@ -3,6 +3,7 @@ using Mooshak_2._0.Models;
 using Mooshak_2._0.Models.Entities;
 using System.Collections.Generic;
 using System.Linq;
+using Mooshak_2._0.Models.ViewModels;
 
 namespace Mooshak_2._0.Repositories
 {
@@ -35,5 +36,10 @@ namespace Mooshak_2._0.Repositories
 			// Map the Entity to the viewModel and return the viewModel
 			return Mapper.Map<List<ApplicationUserViewModel>>(users);
 		}
+
+	    public ApplicationUser GetUserByUsername(string username)
+	    {
+	        return _db.Users.FirstOrDefault(u => u.UserName.ToLower() == username.ToLower());
+	    }
 	}
 }

@@ -14,5 +14,6 @@ namespace Mooshak_2._0.Models.Entities
         public int AssignmentID { get; set; }
         public string Title { get; set; }
         public double Percentage { get; set; }
+		public double Grade { get; set; }
     }
 }

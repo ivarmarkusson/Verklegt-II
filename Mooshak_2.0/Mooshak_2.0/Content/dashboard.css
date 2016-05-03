@@ -31,8 +31,15 @@ body {
 
 /* Hide for mobile, show later */
 .sidebar {
-  display: none;
+  /*display: none;*/
 }
+
+@media (max-width: 767px) {
+    .sidebar li {
+        display: inline-block;
+    }
+}
+
 @media (min-width: 768px) {
   .sidebar {
     position: fixed;
