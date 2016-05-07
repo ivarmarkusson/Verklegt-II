@@ -51,7 +51,7 @@ namespace Mooshak2.Controllers
 
 				ViewBag.CurrentFilter = searchStringUserNameOrEmail;
 
-				List<ExpandedUserDTO> col_UserDTO = new List<ExpandedUserDTO>();
+				List<UserViewModel> col_UserDTO = new List<UserViewModel>();
 				int intSkip = (intPage - 1) * intPageSize;
 
 				int TotalPageCount = UserManager.Users
@@ -67,7 +67,7 @@ namespace Mooshak2.Controllers
 
 				foreach (var item in result)
 				{
-					ExpandedUserDTO objUserDTO = new ExpandedUserDTO();
+					UserViewModel objUserDTO = new UserViewModel();
 
 					objUserDTO.UserName = item.UserName;
 					objUserDTO.Email = item.Email;
@@ -78,7 +78,7 @@ namespace Mooshak2.Controllers
 
 				// Set the number of pages
 				var _UserDTOAsIPagedList =
-					new StaticPagedList<ExpandedUserDTO>
+					new StaticPagedList<UserViewModel>
 					(
 						col_UserDTO, intPage, intPageSize, intTotalPageCount
 					);
@@ -88,7 +88,7 @@ namespace Mooshak2.Controllers
 			catch (Exception ex)
 			{
 				ModelState.AddModelError(string.Empty, "Error: " + ex);
-				List<ExpandedUserDTO> col_UserDTO = new List<ExpandedUserDTO>();
+				List<UserViewModel> col_UserDTO = new List<UserViewModel>();
 
 				return View(col_UserDTO.ToPagedList(1, 25));
 			}
@@ -102,7 +102,7 @@ namespace Mooshak2.Controllers
 		#region public ActionResult Create()
 		public ActionResult Create()
 		{
-			ExpandedUserDTO objExpandedUserDTO = new ExpandedUserDTO();
+			UserViewModel objExpandedUserDTO = new UserViewModel();
 
 			ViewBag.Roles = GetAllRolesAsSelectList();
 
@@ -115,7 +115,7 @@ namespace Mooshak2.Controllers
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		#region public ActionResult Create(ExpandedUserDTO paramExpandedUserDTO)
-		public ActionResult Create(ExpandedUserDTO paramExpandedUserDTO)
+		public ActionResult Create(UserViewModel paramExpandedUserDTO)
 		{
 			try
 			{
@@ -184,7 +184,7 @@ namespace Mooshak2.Controllers
 			{
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 			}
-			ExpandedUserDTO objExpandedUserDTO = GetUser(UserName);
+			UserViewModel objExpandedUserDTO = GetUser(UserName);
 			if (objExpandedUserDTO == null)
 			{
 				return HttpNotFound();
@@ -198,7 +198,7 @@ namespace Mooshak2.Controllers
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		#region public ActionResult EditUser(ExpandedUserDTO paramExpandedUserDTO)
-		public ActionResult EditUser(ExpandedUserDTO paramExpandedUserDTO)
+		public ActionResult EditUser(UserViewModel paramExpandedUserDTO)
 		{
 			try
 			{
@@ -207,7 +207,7 @@ namespace Mooshak2.Controllers
 					return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 				}
 
-				ExpandedUserDTO objExpandedUserDTO = UpdateDTOUser(paramExpandedUserDTO);
+				UserViewModel objExpandedUserDTO = UpdateDTOUser(paramExpandedUserDTO);
 
 				if (objExpandedUserDTO == null)
 				{
@@ -244,7 +244,7 @@ namespace Mooshak2.Controllers
 					return View("EditUser");
 				}
 
-				ExpandedUserDTO objExpandedUserDTO = GetUser(UserName);
+				UserViewModel objExpandedUserDTO = GetUser(UserName);
 
 				if (objExpandedUserDTO == null)
 				{
@@ -278,14 +278,14 @@ namespace Mooshak2.Controllers
 			UserName = UserName.ToLower();
 
 			// Check that we have an actual user
-			ExpandedUserDTO objExpandedUserDTO = GetUser(UserName);
+			UserViewModel objExpandedUserDTO = GetUser(UserName);
 
 			if (objExpandedUserDTO == null)
 			{
 				return HttpNotFound();
 			}
 
-			UserAndRolesDTO objUserAndRolesDTO =
+			UserAndRolesViewModel objUserAndRolesDTO =
 				GetUserAndRoles(UserName);
 
 			return View(objUserAndRolesDTO);
@@ -297,7 +297,7 @@ namespace Mooshak2.Controllers
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		#region public ActionResult EditRoles(UserAndRolesDTO paramUserAndRolesDTO)
-		public ActionResult EditRoles(UserAndRolesDTO paramUserAndRolesDTO)
+		public ActionResult EditRoles(UserAndRolesViewModel paramUserAndRolesDTO)
 		{
 			try
 			{
@@ -320,7 +320,7 @@ namespace Mooshak2.Controllers
 
 				ViewBag.AddRole = new SelectList(RolesUserIsNotIn(UserName));
 
-				UserAndRolesDTO objUserAndRolesDTO =
+				UserAndRolesViewModel objUserAndRolesDTO =
 					GetUserAndRoles(UserName);
 
 				return View(objUserAndRolesDTO);
@@ -348,7 +348,7 @@ namespace Mooshak2.Controllers
 				UserName = UserName.ToLower();
 
 				// Check that we have an actual user
-				ExpandedUserDTO objExpandedUserDTO = GetUser(UserName);
+				UserViewModel objExpandedUserDTO = GetUser(UserName);
 
 				if (objExpandedUserDTO == null)
 				{
@@ -378,7 +378,7 @@ namespace Mooshak2.Controllers
 
 				ViewBag.AddRole = new SelectList(RolesUserIsNotIn(UserName));
 
-				UserAndRolesDTO objUserAndRolesDTO =
+				UserAndRolesViewModel objUserAndRolesDTO =
 					GetUserAndRoles(UserName);
 
 				return View("EditRoles", objUserAndRolesDTO);
@@ -400,8 +400,8 @@ namespace Mooshak2.Controllers
 					new RoleStore<IdentityRole>(new ApplicationDbContext())
 					);
 
-			List<RoleDTO> colRoleDTO = (from objRole in roleManager.Roles
-										select new RoleDTO
+			List<RoleViewModel> colRoleDTO = (from objRole in roleManager.Roles
+										select new RoleViewModel
 										{
 											Id = objRole.Id,
 											RoleName = objRole.Name
@@ -416,7 +416,7 @@ namespace Mooshak2.Controllers
 		#region public ActionResult AddRole()
 		public ActionResult AddRole()
 		{
-			RoleDTO objRoleDTO = new RoleDTO();
+			RoleViewModel objRoleDTO = new RoleViewModel();
 
 			return View(objRoleDTO);
 		}
@@ -427,7 +427,7 @@ namespace Mooshak2.Controllers
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		#region public ActionResult AddRole(RoleDTO paramRoleDTO)
-		public ActionResult AddRole(RoleDTO paramRoleDTO)
+		public ActionResult AddRole(RoleViewModel paramRoleDTO)
 		{
 			try
 			{
@@ -511,8 +511,8 @@ namespace Mooshak2.Controllers
 							);
 				}
 
-				List<RoleDTO> colRoleDTO = (from objRole in roleManager.Roles
-											select new RoleDTO
+				List<RoleViewModel> colRoleDTO = (from objRole in roleManager.Roles
+											select new RoleViewModel
 											{
 												Id = objRole.Id,
 												RoleName = objRole.Name
@@ -528,8 +528,8 @@ namespace Mooshak2.Controllers
 					new RoleManager<IdentityRole>(
 						new RoleStore<IdentityRole>(new ApplicationDbContext()));
 
-				List<RoleDTO> colRoleDTO = (from objRole in roleManager.Roles
-											select new RoleDTO
+				List<RoleViewModel> colRoleDTO = (from objRole in roleManager.Roles
+											select new RoleViewModel
 											{
 												Id = objRole.Id,
 												RoleName = objRole.Name
@@ -609,9 +609,9 @@ namespace Mooshak2.Controllers
 		#endregion
 
 		#region private ExpandedUserDTO GetUser(string paramUserName)
-		private ExpandedUserDTO GetUser(string paramUserName)
+		private UserViewModel GetUser(string paramUserName)
 		{
-			ExpandedUserDTO objExpandedUserDTO = new ExpandedUserDTO();
+			UserViewModel objExpandedUserDTO = new UserViewModel();
 
 			var result = UserManager.FindByName(paramUserName);
 
@@ -629,7 +629,7 @@ namespace Mooshak2.Controllers
 		#endregion
 
 		#region private ExpandedUserDTO UpdateDTOUser(ExpandedUserDTO objExpandedUserDTO)
-		private ExpandedUserDTO UpdateDTOUser(ExpandedUserDTO paramExpandedUserDTO)
+		private UserViewModel UpdateDTOUser(UserViewModel paramExpandedUserDTO)
 		{
 			ApplicationUser result =
 				UserManager.FindByName(paramExpandedUserDTO.UserName);
@@ -680,7 +680,7 @@ namespace Mooshak2.Controllers
 		#endregion
 
 		#region private void DeleteUser(ExpandedUserDTO paramExpandedUserDTO)
-		private void DeleteUser(ExpandedUserDTO paramExpandedUserDTO)
+		private void DeleteUser(UserViewModel paramExpandedUserDTO)
 		{
 			ApplicationUser user =
 				UserManager.FindByName(paramExpandedUserDTO.UserName);
@@ -698,14 +698,14 @@ namespace Mooshak2.Controllers
 		#endregion
 
 		#region private UserAndRolesDTO GetUserAndRoles(string UserName)
-		private UserAndRolesDTO GetUserAndRoles(string UserName)
+		private UserAndRolesViewModel GetUserAndRoles(string UserName)
 		{
 			// Go get the User
 			ApplicationUser user = UserManager.FindByName(UserName);
 
-			List<UserRoleDTO> colUserRoleDTO =
+			List<UserRoleViewModel> colUserRoleDTO =
 				(from objRole in UserManager.GetRoles(user.Id)
-				 select new UserRoleDTO
+				 select new UserRoleViewModel
 				 {
 					 RoleName = objRole,
 					 UserName = UserName
@@ -713,14 +713,14 @@ namespace Mooshak2.Controllers
 
 			if (colUserRoleDTO.Count() == 0)
 			{
-				colUserRoleDTO.Add(new UserRoleDTO { RoleName = "No Roles Found" });
+				colUserRoleDTO.Add(new UserRoleViewModel { RoleName = "No Roles Found" });
 			}
 
 			ViewBag.AddRole = new SelectList(RolesUserIsNotIn(UserName));
 
 			// Create UserRolesAndPermissionsDTO
-			UserAndRolesDTO objUserAndRolesDTO =
-				new UserAndRolesDTO();
+			UserAndRolesViewModel objUserAndRolesDTO =
+				new UserAndRolesViewModel();
 			objUserAndRolesDTO.UserName = UserName;
 			objUserAndRolesDTO.colUserRoleDTO = colUserRoleDTO;
 			return objUserAndRolesDTO;

@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Mooshak2.Models
 {
-	public class ExpandedUserDTO
+	public class UserViewModel
 	{
 		[Key]
 		[Display(Name = "User Name")]
@@ -18,13 +18,13 @@ namespace Mooshak2.Models
 		public string PhoneNumber { get; set; }
 		public IEnumerable Roles { get; set; }
 	}
-	public class UserRolesDTO
+	public class UserRolesViewModels
 	{
 		[Key]
 		[Display(Name = "Role Name")]
 		public string RoleName { get; set; }
 	}
-	public class UserRoleDTO
+	public class UserRoleViewModel
 	{
 		[Key]
 		[Display(Name = "User Name")]
@@ -32,18 +32,18 @@ namespace Mooshak2.Models
 		[Display(Name = "Role Name")]
 		public string RoleName { get; set; }
 	}
-	public class RoleDTO
+	public class RoleViewModel
 	{
 		[Key]
 		public string Id { get; set; }
 		[Display(Name = "Role Name")]
 		public string RoleName { get; set; }
 	}
-	public class UserAndRolesDTO
+	public class UserAndRolesViewModel
 	{
 		[Key]
 		[Display(Name = "User Name")]
 		public string UserName { get; set; }
-		public List<UserRoleDTO> colUserRoleDTO { get; set; }
+		public List<UserRoleViewModel> colUserRoleDTO { get; set; }
 	}
 }

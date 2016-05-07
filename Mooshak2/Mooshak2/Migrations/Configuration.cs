@@ -9,8 +9,7 @@ namespace Mooshak2.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
-            ContextKey = "Mooshak2.Models.ApplicationDbContext";
+            AutomaticMigrationsEnabled = false;
         }
 
         protected override void Seed(Mooshak2.Models.ApplicationDbContext context)
