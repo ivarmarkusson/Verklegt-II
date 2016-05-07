@@ -19,6 +19,7 @@ namespace Mooshak2
 		public Task SendAsync(IdentityMessage message)
 		{
 			// Plug in your email service here to send an email.
+			// Þetta væri cool að gera!
 			return Task.FromResult(0);
 		}
 	}
@@ -107,7 +108,7 @@ namespace Mooshak2
 		}
 	}
 
-	// Add ApplicationRoleManager to allow the management of Roles
+	// ApplicationRoleManager added to allow the management of Roles (Mooshak)
 	public class ApplicationRoleManager : RoleManager<IdentityRole>
 	{
 		public ApplicationRoleManager(IRoleStore<IdentityRole, string> store)
@@ -120,4 +121,5 @@ namespace Mooshak2
 			return new ApplicationRoleManager(roleStore);
 		}
 	}
+
 }

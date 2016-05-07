@@ -20,10 +20,12 @@ namespace Mooshak2.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
-        public AccountController()
+		// Implementation Added (Mooshak)
+		private ApplicationRoleManager _roleManager;
+
+		public AccountController()
         {
         }
-
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
         {
             UserManager = userManager;
@@ -41,8 +43,7 @@ namespace Mooshak2.Controllers
                 _signInManager = value; 
             }
         }
-
-        public ApplicationUserManager UserManager
+		public ApplicationUserManager UserManager
         {
             get
             {
@@ -54,12 +55,27 @@ namespace Mooshak2.Controllers
             }
         }
 
-        //
-        // GET: /Account/Login
-        [AllowAnonymous]
+		// Implementation Added (Mooshak)
+		public ApplicationRoleManager RoleManager
+		{
+			get
+			{
+				return _roleManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationRoleManager>();
+			}
+			private set
+			{
+				_roleManager = value;
+			}
+		}
+
+		// Implementation Added (Mooshak)
+		#region /Account/Login
+		//
+		// GET: /Account/Login
+		[AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-			// Creates Admin using setting in Web.Config if needed
+			// Creates Admin using setting in Web.Config if needed (Mooshak)
 			CreateAdminIfNeeded();
 
             ViewBag.ReturnUrl = returnUrl;
@@ -95,10 +111,12 @@ namespace Mooshak2.Controllers
                     return View(model);
             }
         }
+		#endregion
 
-        //
-        // GET: /Account/VerifyCode
-        [AllowAnonymous]
+		#region /Account/VerifyCode - /Account/Register - /Account/ConfirmEmail
+		//
+		// GET: /Account/VerifyCode
+		[AllowAnonymous]
         public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
         {
             // Require that the user has already logged in via username/password or external login
@@ -189,18 +207,21 @@ namespace Mooshak2.Controllers
             var result = await UserManager.ConfirmEmailAsync(userId, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
+		#endregion
 
-        //
-        // GET: /Account/ForgotPassword
-        [AllowAnonymous]
+		#region /Account/ForgotPassword
+		//
+		// GET: /Account/ForgotPassword
+		[AllowAnonymous]
         public ActionResult ForgotPassword()
         {
             return View();
         }
-
-        //
-        // POST: /Account/ForgotPassword
-        [HttpPost]
+		
+		
+		//
+		// POST: /Account/ForgotPassword
+		[HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
@@ -233,10 +254,12 @@ namespace Mooshak2.Controllers
         {
             return View();
         }
+		#endregion
 
-        //
-        // GET: /Account/ResetPassword
-        [AllowAnonymous]
+		#region /Account/ResetPassword
+		//
+		// GET: /Account/ResetPassword
+		[AllowAnonymous]
         public ActionResult ResetPassword(string code)
         {
             return code == null ? View("Error") : View();
@@ -275,21 +298,12 @@ namespace Mooshak2.Controllers
         {
             return View();
         }
+		#endregion
 
-        //
-        // POST: /Account/ExternalLogin
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public ActionResult ExternalLogin(string provider, string returnUrl)
-        {
-            // Request a redirect to the external login provider
-            return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
-        }
-
-        //
-        // GET: /Account/SendCode
-        [AllowAnonymous]
+		#region /Account/SendCode
+		//
+		// GET: /Account/SendCode
+		[AllowAnonymous]
         public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe)
         {
             var userId = await SignInManager.GetVerifiedUserIdAsync();
@@ -321,10 +335,23 @@ namespace Mooshak2.Controllers
             }
             return RedirectToAction("VerifyCode", new { Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl, RememberMe = model.RememberMe });
         }
+		#endregion
 
-        //
-        // GET: /Account/ExternalLoginCallback
-        [AllowAnonymous]
+		#region /Account/ExternalLogin - /Account/ExternalLoginCallback - /Account/ExternalLoginConfirmation
+		//
+		// POST: /Account/ExternalLogin
+		[HttpPost]
+		[AllowAnonymous]
+		[ValidateAntiForgeryToken]
+		public ActionResult ExternalLogin(string provider, string returnUrl)
+		{
+			// Request a redirect to the external login provider
+			return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
+		}
+
+		//
+		// GET: /Account/ExternalLoginCallback
+		[AllowAnonymous]
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
@@ -389,20 +416,24 @@ namespace Mooshak2.Controllers
             ViewBag.ReturnUrl = returnUrl;
             return View(model);
         }
+		#endregion
 
-        //
-        // POST: /Account/LogOff
-        [HttpPost]
+		#region /Account/LogOff
+		//
+		// POST: /Account/LogOff
+		[HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
         }
+		#endregion
 
-        //
-        // GET: /Account/ExternalLoginFailure
-        [AllowAnonymous]
+		#region /Account/ExternalLoginFailure
+		//
+		// GET: /Account/ExternalLoginFailure
+		[AllowAnonymous]
         public ActionResult ExternalLoginFailure()
         {
             return View();
@@ -427,10 +458,11 @@ namespace Mooshak2.Controllers
 
             base.Dispose(disposing);
         }
+		#endregion
 
-        #region Helpers
-        // Used for XSRF protection when adding external logins
-        private const string XsrfKey = "XsrfId";
+		#region Helpers
+		// Used for XSRF protection when adding external logins
+		private const string XsrfKey = "XsrfId";
 
         private IAuthenticationManager AuthenticationManager
         {
@@ -487,23 +519,7 @@ namespace Mooshak2.Controllers
         }
         #endregion
 
-		// Add RoleManager
-        #region public ApplicationRoleManager RoleManager
-        private ApplicationRoleManager _roleManager;
-        public ApplicationRoleManager RoleManager
-        {
-            get
-            {
-                return _roleManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationRoleManager>();
-            }
-            private set
-            {
-                _roleManager = value;
-            }
-        }
-        #endregion
-
-        // Add CreateAdminIfNeeded
+	    // CreateAdminIfNeeded() Implementation
         #region private void CreateAdminIfNeeded()
         private void CreateAdminIfNeeded()
         {

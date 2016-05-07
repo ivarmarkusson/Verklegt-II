@@ -19,7 +19,6 @@ namespace Mooshak2.Controllers
         public ManageController()
         {
         }
-
         public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
@@ -37,7 +36,6 @@ namespace Mooshak2.Controllers
                 _signInManager = value; 
             }
         }
-
         public ApplicationUserManager UserManager
         {
             get
@@ -331,7 +329,7 @@ namespace Mooshak2.Controllers
             base.Dispose(disposing);
         }
 
-#region Helpers
+		#region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 

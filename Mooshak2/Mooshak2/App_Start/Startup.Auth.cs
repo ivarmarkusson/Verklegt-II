@@ -7,22 +7,19 @@ using Microsoft.Owin.Security.Google;
 using Owin;
 using Mooshak2.Models;
 
+
 namespace Mooshak2
 {
     public partial class Startup
     {
-		
 		public void ConfigureAuth(IAppBuilder app)
         {
-
-			
-
 			// Configure the db context, user manager and signin manager to use a single instance per request
 			app.CreatePerOwinContext(ApplicationDbContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
             app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
 
-			// Add Role Manager (Lúlli)
+			// Add RoleManager, Implementation in IdentityConfig.cs (Mooshak)
 			app.CreatePerOwinContext<ApplicationRoleManager>(ApplicationRoleManager.Create);
 
 			// Enable the application to use a cookie to store information for the signed in user

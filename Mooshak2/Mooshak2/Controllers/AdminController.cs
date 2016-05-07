@@ -1,5 +1,4 @@
-﻿#region Includes
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -11,7 +10,6 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Mooshak2.Models;
 using PagedList;
 
-#endregion Includes
 
 namespace Mooshak2.Controllers
 {
@@ -20,7 +18,7 @@ namespace Mooshak2.Controllers
 		private ApplicationUserManager _userManager;
 		private ApplicationRoleManager _roleManager;
 
-		// Controllers
+		// *** CONTROLLERS *** //
 
 		// GET: /Admin/
 		[Authorize(Roles = "Administrator")]
@@ -83,7 +81,7 @@ namespace Mooshak2.Controllers
 					new StaticPagedList<ExpandedUserDTO>
 					(
 						col_UserDTO, intPage, intPageSize, intTotalPageCount
-						);
+					);
 
 				return View(_UserDTOAsIPagedList);
 			}
@@ -97,7 +95,7 @@ namespace Mooshak2.Controllers
 		}
 		#endregion
 
-		// Users *****************************
+		//  *** USERS *** //
 
 		// GET: /Admin/Edit/Create 
 		[Authorize(Roles = "Administrator")]
@@ -388,7 +386,8 @@ namespace Mooshak2.Controllers
 		}
 		#endregion
 
-		// Roles *****************************
+
+		// *** ROLES *** //
 
 		// GET: /Admin/ViewAllRoles
 		[Authorize(Roles = "Administrator")]
@@ -542,7 +541,7 @@ namespace Mooshak2.Controllers
 		#endregion
 
 
-		// Utility
+		// *** UTILITIES *** //
 
 		#region public ApplicationUserManager UserManager
 		public ApplicationUserManager UserManager

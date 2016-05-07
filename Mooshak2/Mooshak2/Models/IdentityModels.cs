@@ -6,16 +6,23 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Mooshak2.Models
 {
-    // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
-    public class ApplicationUser : IdentityUser
+	// You can add profile data for the user by adding more properties to your ApplicationUser class, 
+	// please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
+
+	public class ApplicationUser : IdentityUser
     {
+		// Mögulega þarf að bæta við fleiri properties
 		public string FullName { get; set; }
+
 		public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
-            // Add custom user claims here
-            return userIdentity;
+
+			// Add custom user claims here
+			// Skoða þetta betur
+
+			return userIdentity;
         }
     }
 
