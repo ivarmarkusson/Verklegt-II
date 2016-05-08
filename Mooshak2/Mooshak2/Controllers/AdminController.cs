@@ -9,7 +9,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Mooshak2.Models;
 using PagedList;
-
+using Mooshak2.Models.Entities;
 
 namespace Mooshak2.Controllers
 {

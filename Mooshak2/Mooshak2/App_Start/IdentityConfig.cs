@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Mooshak2.Models;
+using Mooshak2.Models.Entities;
 
 namespace Mooshak2
 {
@@ -40,6 +41,8 @@ namespace Mooshak2
 			: base(store)
 		{
 		}
+
+		public bool Succeeded { get; internal set; }
 
 		public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
 		{

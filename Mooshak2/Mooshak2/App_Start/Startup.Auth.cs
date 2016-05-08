@@ -6,7 +6,7 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using Mooshak2.Models;
-
+using Mooshak2.Models.Entities;
 
 namespace Mooshak2
 {

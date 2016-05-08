@@ -10,6 +10,7 @@ using Microsoft.Owin.Security;
 using Mooshak2.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Configuration;
+using Mooshak2.Models.Entities;
 
 namespace Mooshak2.Controllers
 {
