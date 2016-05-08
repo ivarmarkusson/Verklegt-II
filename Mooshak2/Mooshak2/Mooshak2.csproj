@@ -222,6 +222,18 @@
     <Compile Include="Migrations\201605080231000_MilestoneID.Designer.cs">
       <DependentUpon>201605080231000_MilestoneID.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605082329576_something.cs" />
+    <Compile Include="Migrations\201605082329576_something.Designer.cs">
+      <DependentUpon>201605082329576_something.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605082338335_ListUsersInCourse.cs" />
+    <Compile Include="Migrations\201605082338335_ListUsersInCourse.Designer.cs">
+      <DependentUpon>201605082338335_ListUsersInCourse.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605082340334_something1.cs" />
+    <Compile Include="Migrations\201605082340334_something1.Designer.cs">
+      <DependentUpon>201605082340334_something1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entities\ApplicationUser.cs" />
     <Compile Include="Models\Entities\Assignment.cs" />
@@ -230,6 +242,7 @@
     <Compile Include="Models\Entities\Submission.cs" />
     <Compile Include="Models\ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
+    <Compile Include="Models\ViewModels\CourseViewModel.cs" />
     <Compile Include="Models\ViewModels\ManageViewModels.cs" />
     <Compile Include="Models\ViewModels\UserRolesViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -307,6 +320,7 @@
     <Content Include="Views\Admin\Create.cshtml" />
     <Content Include="Views\Admin\EditUser.cshtml" />
     <Content Include="Views\Admin\EditRoles.cshtml" />
+    <Content Include="Views\Admin\CreateCourse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Pictures\" />
@@ -329,6 +343,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605080231000_MilestoneID.resx">
       <DependentUpon>201605080231000_MilestoneID.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605082329576_something.resx">
+      <DependentUpon>201605082329576_something.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605082338335_ListUsersInCourse.resx">
+      <DependentUpon>201605082338335_ListUsersInCourse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605082340334_something1.resx">
+      <DependentUpon>201605082340334_something1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

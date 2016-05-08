@@ -10,11 +10,13 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Mooshak2.Models;
 using PagedList;
 using Mooshak2.Models.Entities;
+using Mooshak2.Models.ViewModels;
 
 namespace Mooshak2.Controllers
 {
 	public class AdminController : Controller
 	{
+		private ApplicationDbContext _db = new ApplicationDbContext();
 		private ApplicationUserManager _userManager;
 		private ApplicationRoleManager _roleManager;
 
@@ -539,6 +541,32 @@ namespace Mooshak2.Controllers
 			}
 		}
 		#endregion
+
+		// *** COURSES *** //
+
+		
+
+		public ActionResult CreateCourse()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		public ActionResult CreateCourse(CourseViewModel model)
+		{
+			if (ModelState.IsValid)
+			{
+				var course = new Course();
+
+				course.ID = model.ID;
+				course.Name = model.Name;
+
+				_db.Courses.Add(course);
+				_db.SaveChanges();
+			}
+
+			return View();
+		}
 
 
 		// *** UTILITIES *** //
