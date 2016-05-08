@@ -10,7 +10,12 @@ namespace Mooshak2.Models
 	
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext()
+		public DbSet<Course> Courses { get; set; }
+		public DbSet<Assignment> Assignments { get; set; }
+		public DbSet<Milestone> Milestones { set; get; }
+		public DbSet<Submission> Submissions { get; set; }
+
+		public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
