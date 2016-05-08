@@ -214,6 +214,10 @@
     <Compile Include="Migrations\201605072336003_initial.Designer.cs">
       <DependentUpon>201605072336003_initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605080218259_MoreEntities.cs" />
+    <Compile Include="Migrations\201605080218259_MoreEntities.Designer.cs">
+      <DependentUpon>201605080218259_MoreEntities.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entities\ApplicationUser.cs" />
     <Compile Include="Models\Entities\Assignment.cs" />
@@ -315,6 +319,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201605072336003_initial.resx">
       <DependentUpon>201605072336003_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605080218259_MoreEntities.resx">
+      <DependentUpon>201605080218259_MoreEntities.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
