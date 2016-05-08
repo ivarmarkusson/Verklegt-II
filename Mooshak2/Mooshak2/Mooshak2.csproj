@@ -218,6 +218,10 @@
     <Compile Include="Migrations\201605080218259_MoreEntities.Designer.cs">
       <DependentUpon>201605080218259_MoreEntities.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605080231000_MilestoneID.cs" />
+    <Compile Include="Migrations\201605080231000_MilestoneID.Designer.cs">
+      <DependentUpon>201605080231000_MilestoneID.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entities\ApplicationUser.cs" />
     <Compile Include="Models\Entities\Assignment.cs" />
@@ -322,6 +326,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605080218259_MoreEntities.resx">
       <DependentUpon>201605080218259_MoreEntities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605080231000_MilestoneID.resx">
+      <DependentUpon>201605080231000_MilestoneID.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
