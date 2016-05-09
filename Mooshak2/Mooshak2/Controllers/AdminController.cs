@@ -20,15 +20,32 @@ namespace Mooshak2.Controllers
 		private ApplicationUserManager _userManager;
 		private ApplicationRoleManager _roleManager;
 
-		// *** CONTROLLERS *** //
 
-		// GET: /Admin/
+		// *** INDEX *** //
+
+		// GET: /Admin/Index
 		[Authorize(Roles = "Administrator")]
-		#region public ActionResult Index(string searchStringUserNameOrEmail)
-		public ActionResult Index(string searchStringUserNameOrEmail, string currentFilter, int? page)
+		#region public ActionResult Index()
+		public ActionResult Index()
+		{
+
+			// Hér er hægt að gera eitthvað
+
+			return View();
+		}
+		#endregion
+
+
+		//  *** USERS *** //
+
+		// GET: /Admin/Users
+		[Authorize(Roles = "Administrator")]
+		#region public ActionResult Users(string searchStringUserNameOrEmail, string currentFilter, int? page)
+		public ActionResult Users(string searchStringUserNameOrEmail, string currentFilter, int? page)
 		{
 			try
 			{
+				#region Searh Code
 				int intPage = 1;
 				int intPageSize = 5;
 				int intTotalPageCount = 0;
@@ -50,10 +67,11 @@ namespace Mooshak2.Controllers
 						intPage = page ?? 1;
 					}
 				}
+				#endregion
 
 				ViewBag.CurrentFilter = searchStringUserNameOrEmail;
 
-				List<UserViewModel> col_UserDTO = new List<UserViewModel>();
+				List<UserViewModel> ViewModelUsers = new List<UserViewModel>();
 				int intSkip = (intPage - 1) * intPageSize;
 
 				int TotalPageCount = UserManager.Users
@@ -69,20 +87,20 @@ namespace Mooshak2.Controllers
 
 				foreach (var item in result)
 				{
-					UserViewModel objUserDTO = new UserViewModel();
+					UserViewModel objUserViewModel = new UserViewModel();
 
-					objUserDTO.UserName = item.UserName;
-					objUserDTO.Email = item.Email;
-					objUserDTO.LockoutEndDateUtc = item.LockoutEndDateUtc;
+					objUserViewModel.UserName = item.UserName;
+					objUserViewModel.Email = item.Email;
+					objUserViewModel.LockoutEndDateUtc = item.LockoutEndDateUtc;
 
-					col_UserDTO.Add(objUserDTO);
+					ViewModelUsers.Add(objUserViewModel);
 				}
 
 				// Set the number of pages
 				var _UserDTOAsIPagedList =
 					new StaticPagedList<UserViewModel>
 					(
-						col_UserDTO, intPage, intPageSize, intTotalPageCount
+						ViewModelUsers, intPage, intPageSize, intTotalPageCount
 					);
 
 				return View(_UserDTOAsIPagedList);
@@ -97,38 +115,36 @@ namespace Mooshak2.Controllers
 		}
 		#endregion
 
-		//  *** USERS *** //
-
 		// GET: /Admin/Edit/Create 
 		[Authorize(Roles = "Administrator")]
-		#region public ActionResult Create()
-		public ActionResult Create()
+		#region public ActionResult CreateUser()
+		public ActionResult CreateUser()
 		{
-			UserViewModel objExpandedUserDTO = new UserViewModel();
+			UserViewModel user = new UserViewModel();
 
 			ViewBag.Roles = GetAllRolesAsSelectList();
 
-			return View(objExpandedUserDTO);
+			return View(user);
 		}
 		#endregion
 
-		// PUT: /Admin/Create
+		// PUT: /Admin/CreateUser
 		[Authorize(Roles = "Administrator")]
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		#region public ActionResult Create(ExpandedUserDTO paramExpandedUserDTO)
-		public ActionResult Create(UserViewModel paramExpandedUserDTO)
+		#region public ActionResult CreateUser(UserViewModel paramUserViewModel)
+		public ActionResult CreateUser(UserViewModel model)
 		{
 			try
 			{
-				if (paramExpandedUserDTO == null)
+				if (model == null)
 				{
 					return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 				}
 
-				var Email = paramExpandedUserDTO.Email.Trim();
-				var UserName = paramExpandedUserDTO.Email.Trim();
-				var Password = paramExpandedUserDTO.Password.Trim();
+				var Email = model.Email.Trim();
+				var UserName = model.Email.Trim();
+				var Password = model.Password.Trim();
 
 				if (Email == "")
 				{
@@ -158,14 +174,14 @@ namespace Mooshak2.Controllers
 						UserManager.AddToRole(objNewAdminUser.Id, strNewRole);
 					}
 
-					return Redirect("~/Admin");
+					return Redirect("~/Admin/Users");
 				}
 				else
 				{
 					ViewBag.Roles = GetAllRolesAsSelectList();
 					ModelState.AddModelError(string.Empty,
 						"Error: Failed to create the user. Check password requirements.");
-					return View(paramExpandedUserDTO);
+					return View(model);
 				}
 			}
 			catch (Exception ex)
@@ -186,12 +202,12 @@ namespace Mooshak2.Controllers
 			{
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 			}
-			UserViewModel objExpandedUserDTO = GetUser(UserName);
-			if (objExpandedUserDTO == null)
+			UserViewModel userViewModel = GetUser(UserName);
+			if (userViewModel == null)
 			{
 				return HttpNotFound();
 			}
-			return View(objExpandedUserDTO);
+			return View(userViewModel);
 		}
 		#endregion
 
@@ -199,19 +215,19 @@ namespace Mooshak2.Controllers
 		[Authorize(Roles = "Administrator")]
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		#region public ActionResult EditUser(ExpandedUserDTO paramExpandedUserDTO)
-		public ActionResult EditUser(UserViewModel paramExpandedUserDTO)
+		#region public ActionResult EditUser(UserViewModel model)
+		public ActionResult EditUser(UserViewModel model)
 		{
 			try
 			{
-				if (paramExpandedUserDTO == null)
+				if (model == null)
 				{
 					return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 				}
 
-				UserViewModel objExpandedUserDTO = UpdateDTOUser(paramExpandedUserDTO);
+				UserViewModel udatedUserViewModel = UpdateDTOUser(model);
 
-				if (objExpandedUserDTO == null)
+				if (udatedUserViewModel == null)
 				{
 					return HttpNotFound();
 				}
@@ -221,7 +237,7 @@ namespace Mooshak2.Controllers
 			catch (Exception ex)
 			{
 				ModelState.AddModelError(string.Empty, "Error: " + ex);
-				return View("EditUser", GetUser(paramExpandedUserDTO.UserName));
+				return View("EditUser", GetUser(model.UserName));
 			}
 		}
 		#endregion
@@ -246,15 +262,15 @@ namespace Mooshak2.Controllers
 					return View("EditUser");
 				}
 
-				UserViewModel objExpandedUserDTO = GetUser(UserName);
+				UserViewModel deletedUser = GetUser(UserName);
 
-				if (objExpandedUserDTO == null)
+				if (deletedUser == null)
 				{
 					return HttpNotFound();
 				}
 				else
 				{
-					DeleteUser(objExpandedUserDTO);
+					DeleteUser(deletedUser);
 				}
 
 				return Redirect("~/Admin");
@@ -269,7 +285,7 @@ namespace Mooshak2.Controllers
 
 		// GET: /Admin/EditRoles/TestUser 
 		[Authorize(Roles = "Administrator")]
-		#region ActionResult EditRoles(string UserName)
+		#region public ActionResult EditRoles(string UserName)
 		public ActionResult EditRoles(string UserName)
 		{
 			if (UserName == null)
@@ -280,17 +296,16 @@ namespace Mooshak2.Controllers
 			UserName = UserName.ToLower();
 
 			// Check that we have an actual user
-			UserViewModel objExpandedUserDTO = GetUser(UserName);
+			UserViewModel userViewModel = GetUser(UserName);
 
-			if (objExpandedUserDTO == null)
+			if (userViewModel == null)
 			{
 				return HttpNotFound();
 			}
 
-			UserAndRolesViewModel objUserAndRolesDTO =
-				GetUserAndRoles(UserName);
+			UserAndRolesViewModel userAndRolesViewModel = GetUserAndRoles(UserName);
 
-			return View(objUserAndRolesDTO);
+			return View(userAndRolesViewModel);
 		}
 		#endregion
 
@@ -298,17 +313,17 @@ namespace Mooshak2.Controllers
 		[Authorize(Roles = "Administrator")]
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		#region public ActionResult EditRoles(UserAndRolesDTO paramUserAndRolesDTO)
-		public ActionResult EditRoles(UserAndRolesViewModel paramUserAndRolesDTO)
+		#region public ActionResult EditRoles(UserAndRolesViewModel userAndRolesViewModel)
+		public ActionResult EditRoles(UserAndRolesViewModel userAndRolesViewModel)
 		{
 			try
 			{
-				if (paramUserAndRolesDTO == null)
+				if (userAndRolesViewModel == null)
 				{
 					return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 				}
 
-				string UserName = paramUserAndRolesDTO.UserName;
+				string UserName = userAndRolesViewModel.UserName;
 				string strNewRole = Convert.ToString(Request.Form["AddRole"]);
 
 				if (strNewRole != "No Roles Found")
@@ -322,10 +337,10 @@ namespace Mooshak2.Controllers
 
 				ViewBag.AddRole = new SelectList(RolesUserIsNotIn(UserName));
 
-				UserAndRolesViewModel objUserAndRolesDTO =
+				UserAndRolesViewModel objUserAndRolesViewModel =
 					GetUserAndRoles(UserName);
 
-				return View(objUserAndRolesDTO);
+				return View(objUserAndRolesViewModel);
 			}
 			catch (Exception ex)
 			{
@@ -350,9 +365,9 @@ namespace Mooshak2.Controllers
 				UserName = UserName.ToLower();
 
 				// Check that we have an actual user
-				UserViewModel objExpandedUserDTO = GetUser(UserName);
+				UserViewModel userViewModel = GetUser(UserName);
 
-				if (objExpandedUserDTO == null)
+				if (userViewModel == null)
 				{
 					return HttpNotFound();
 				}
@@ -380,10 +395,10 @@ namespace Mooshak2.Controllers
 
 				ViewBag.AddRole = new SelectList(RolesUserIsNotIn(UserName));
 
-				UserAndRolesViewModel objUserAndRolesDTO =
+				UserAndRolesViewModel objUserAndRolesViewModel =
 					GetUserAndRoles(UserName);
 
-				return View("EditRoles", objUserAndRolesDTO);
+				return View("EditRoles", objUserAndRolesViewModel);
 			}
 		}
 		#endregion
@@ -391,54 +406,53 @@ namespace Mooshak2.Controllers
 
 		// *** ROLES *** //
 
-		// GET: /Admin/ViewAllRoles
+		// GET: /Admin/Roles
 		[Authorize(Roles = "Administrator")]
-		#region public ActionResult ViewAllRoles()
-		public ActionResult ViewAllRoles()
+		#region public ActionResult Roles()
+		public ActionResult Roles()
 		{
 			var roleManager =
 				new RoleManager<IdentityRole>
 				(
 					new RoleStore<IdentityRole>(new ApplicationDbContext())
-					);
+				);
 
-			List<RoleViewModel> colRoleDTO = (from objRole in roleManager.Roles
-										select new RoleViewModel
-										{
-											Id = objRole.Id,
-											RoleName = objRole.Name
-										}).ToList();
+			List<RoleViewModel> colRoleDTO = 
+				(from objRole 
+				 in roleManager.Roles
+				 select new RoleViewModel { Id = objRole.Id, RoleName = objRole.Name } 
+				).ToList();
 
 			return View(colRoleDTO);
 		}
 		#endregion
 
-		// GET: /Admin/AddRole
+		// GET: /Admin/CreateRole
 		[Authorize(Roles = "Administrator")]
-		#region public ActionResult AddRole()
-		public ActionResult AddRole()
+		#region public ActionResult CreateRole()
+		public ActionResult CreateRole()
 		{
-			RoleViewModel objRoleDTO = new RoleViewModel();
+			RoleViewModel roleViewModel = new RoleViewModel();
 
-			return View(objRoleDTO);
+			return View(roleViewModel);
 		}
 		#endregion
 
-		// PUT: /Admin/AddRole
+		// PUT: /Admin/CreateRole
 		[Authorize(Roles = "Administrator")]
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		#region public ActionResult AddRole(RoleDTO paramRoleDTO)
-		public ActionResult AddRole(RoleViewModel paramRoleDTO)
+		#region public ActionResult CreateRole(RoleViewModel model)
+		public ActionResult CreateRole(RoleViewModel model)
 		{
 			try
 			{
-				if (paramRoleDTO == null)
+				if (model == null)
 				{
 					return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 				}
 
-				var RoleName = paramRoleDTO.RoleName.Trim();
+				var RoleName = model.RoleName.Trim();
 
 				if (RoleName == "")
 				{
@@ -456,12 +470,12 @@ namespace Mooshak2.Controllers
 					roleManager.Create(new IdentityRole(RoleName));
 				}
 
-				return Redirect("~/Admin/ViewAllRoles");
+				return Redirect("~/Admin/Roles");
 			}
 			catch (Exception ex)
 			{
 				ModelState.AddModelError(string.Empty, "Error: " + ex);
-				return View("AddRole");
+				return View("CreateRole");
 			}
 		}
 		#endregion
@@ -513,14 +527,14 @@ namespace Mooshak2.Controllers
 							);
 				}
 
-				List<RoleViewModel> colRoleDTO = (from objRole in roleManager.Roles
+				List<RoleViewModel> roleViewModel = (from objRole in roleManager.Roles
 											select new RoleViewModel
 											{
 												Id = objRole.Id,
 												RoleName = objRole.Name
 											}).ToList();
 
-				return View("ViewAllRoles", colRoleDTO);
+				return View("Roles", roleViewModel);
 			}
 			catch (Exception ex)
 			{
@@ -537,21 +551,62 @@ namespace Mooshak2.Controllers
 												RoleName = objRole.Name
 											}).ToList();
 
-				return View("ViewAllRoles", colRoleDTO);
+				return View("Roles", colRoleDTO);
 			}
 		}
 		#endregion
 
+
 		// *** COURSES *** //
 
-		
+		// GET: /Admin/Courses
+		[Authorize(Roles = "Administrator")]
+		#region public ActionResult Courses()
+		public ActionResult Courses()
+		{
+			List<CourseViewModel> theList = new List<CourseViewModel>();
+			var result = _db.Courses.ToList();
 
+			foreach (var item in result)
+			{
+				CourseViewModel courseViewModel = new CourseViewModel();
+
+				courseViewModel.ID = item.ID;
+				courseViewModel.Name = item.Name;
+
+				theList.Add(courseViewModel);
+			}
+
+			return View(theList);
+		}
+		#endregion
+
+		// GET: /Admin/CreateCourse/
+		[Authorize(Roles = "Administrator")]
+		#region public ActionResult CreateCourse()
 		public ActionResult CreateCourse()
 		{
-			return View();
-		}
+			List<CourseViewModel> theList = new List<CourseViewModel>();
+			var result = _db.Courses.ToList();
 
+			foreach (var item in result)
+			{
+				CourseViewModel courseViewModel = new CourseViewModel();
+
+				courseViewModel.ID = item.ID;
+				courseViewModel.Name = item.Name;
+
+				theList.Add(courseViewModel);
+			}
+
+			return View(theList);
+		}
+		#endregion
+
+		// POST: /Admin/CreateCourse/
 		[HttpPost]
+		[Authorize(Roles = "Administrator")]
+		#region public ActionResult CreateCourse(CourseViewModel model)
 		public ActionResult CreateCourse(CourseViewModel model)
 		{
 			if (ModelState.IsValid)
@@ -565,8 +620,24 @@ namespace Mooshak2.Controllers
 				_db.SaveChanges();
 			}
 
-			return View();
+			return Redirect("~/Admin/Courses");
 		}
+		#endregion
+
+		// GET: /Admin/DeleteCourse/
+		[Authorize(Roles = "Administrator")]
+		#region public ActionResult DeleteCourse(string Name)
+		public ActionResult DeleteCourse(string Name)
+		{
+			CourseViewModel course = GetCourseByName(Name);
+
+			if (course != null)
+			{
+				DeleteCourse(course);
+			}
+			return Redirect("~/Admin/Courses");
+		}
+		#endregion
 
 
 		// *** UTILITIES *** //
@@ -636,23 +707,55 @@ namespace Mooshak2.Controllers
 		}
 		#endregion
 
+		#region private CourseViewModel GetCourseByName(string paramName)
+		private CourseViewModel GetCourseByName(string paramName)
+		{
+			CourseViewModel course = new CourseViewModel();
+
+			var result = _db.Courses.Where(x => x.Name == paramName).SingleOrDefault();
+
+			if (result != null)
+			{
+				course.ID = result.ID;
+				course.Name = result.Name;
+			}
+
+			return course;
+		}
+		#endregion
+
+		#region private void DeleteCourse(CourseViewModel paramCourseViewModel)
+		private void DeleteCourse(CourseViewModel paramCourseViewModel)
+		{
+			Course course = _db.Courses
+				.Where(x => x.Name == paramCourseViewModel.Name)
+				.SingleOrDefault();
+
+			if (course != null)
+			{
+				_db.Courses.Remove(course);
+				_db.SaveChanges();
+			}
+		}
+		#endregion
+
 		#region private ExpandedUserDTO GetUser(string paramUserName)
 		private UserViewModel GetUser(string paramUserName)
 		{
-			UserViewModel objExpandedUserDTO = new UserViewModel();
+			UserViewModel user = new UserViewModel();
 
 			var result = UserManager.FindByName(paramUserName);
 
 			// If we could not find the user, throw an exception
 			if (result == null) throw new Exception("Could not find the User");
 
-			objExpandedUserDTO.UserName = result.UserName;
-			objExpandedUserDTO.Email = result.Email;
-			objExpandedUserDTO.LockoutEndDateUtc = result.LockoutEndDateUtc;
-			objExpandedUserDTO.AccessFailedCount = result.AccessFailedCount;
-			objExpandedUserDTO.PhoneNumber = result.PhoneNumber;
+			user.UserName = result.UserName;
+			user.Email = result.Email;
+			user.LockoutEndDateUtc = result.LockoutEndDateUtc;
+			user.AccessFailedCount = result.AccessFailedCount;
+			user.PhoneNumber = result.PhoneNumber;
 
-			return objExpandedUserDTO;
+			return user;
 		}
 		#endregion
 

@@ -9,9 +9,8 @@
 
 	<div class="form-horizontal">
 		<h4>Edit User</h4>
-		@Html.ValidationSummary(true,
-	   "",
-	   new { @class = "text-danger" })
+		@Html.ValidationSummary(true,"",new { @class = "text-danger" })
+		
 		<div class="form-group">
 			@Html.LabelFor(model => model.UserName,
 		   htmlAttributes: new { @class = "control-label col-md-2" })
@@ -46,7 +45,7 @@
 			   new { @class = "text-danger" })
 			</div>
 		</div>
-
+		<!--
 		<div class="form-group">
 			@Html.LabelFor(model => model.LockoutEndDateUtc,
 		   htmlAttributes: new { @class = "control-label col-md-2" })
@@ -55,17 +54,17 @@
 			   new { htmlAttributes = new { @class = "form-control" } })
 			</div>
 		</div>
-
+		-->
 		<div class="form-group">
 			<div class="col-md-offset-2 col-md-10">
-				<input type="submit" value="Save" class="btn btn-default" />
+				<input type="submit" value="Save" class="btn btn-info" />
 				@Html.ActionLink("Edit Roles", "EditRoles",
 			   new { UserName = Model.UserName },
-			   new { @class = "btn btn-default" })
+			   new { @class = "btn btn-info" })
 				@Html.ActionLink("Back to List",
-			   "Index",
+			   "Users",
 			   null,
-			   new { @class = "btn btn-default" })
+			   new { @class = "btn btn-info" })
 			</div>
 		</div>
 	</div>
