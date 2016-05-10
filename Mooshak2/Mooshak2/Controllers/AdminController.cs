@@ -49,7 +49,7 @@ namespace Mooshak2.Controllers
 			{
 				#region Searh Code
 				int intPage = 1;
-				int intPageSize = 5;
+				int intPageSize = 100;
 				int intTotalPageCount = 0;
 
 				if (searchStringUserNameOrEmail != null)
@@ -122,21 +122,8 @@ namespace Mooshak2.Controllers
 		#region public ActionResult CreateUser()
 		public ActionResult CreateUser()
 		{
-			List<CourseViewModel> listOfCourses = new List<CourseViewModel>();
-			var result = _db.Courses.ToList();
-
-			foreach (var item in result)
-			{
-				CourseViewModel course = new CourseViewModel();
-
-				course.ID = item.ID;
-				course.Name = item.Name;
-
-				listOfCourses.Add(course);
-			}
-
 			UserViewModel user = new UserViewModel();
-			user.Courses = listOfCourses;
+
 			ViewBag.Roles = GetAllRolesAsSelectList();
 
 			return View(user);
@@ -288,7 +275,7 @@ namespace Mooshak2.Controllers
 					DeleteUser(deletedUser);
 				}
 
-				return Redirect("~/Admin");
+				return Redirect("~/Admin/Users");
 			}
 			catch (Exception ex)
 			{

@@ -18,7 +18,7 @@ namespace Mooshak2.Models
 		public int AccessFailedCount { get; set; }
 		public string PhoneNumber { get; set; }
 		public IEnumerable Roles { get; set; }
-		public List<CourseViewModel> Courses { get; set; }
+
 
 	}
 	public class UserRolesViewModels
