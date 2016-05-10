@@ -23,6 +23,7 @@ namespace Mooshak2.Controllers
 
 		// *** INDEX *** //
 
+
 		// GET: /Admin/Index
 		[Authorize(Roles = "Administrator")]
 		#region public ActionResult Index()
@@ -37,6 +38,7 @@ namespace Mooshak2.Controllers
 
 
 		//  *** USERS *** //
+
 
 		// GET: /Admin/Users
 		[Authorize(Roles = "Administrator")]
@@ -406,6 +408,7 @@ namespace Mooshak2.Controllers
 
 		// *** ROLES *** //
 
+
 		// GET: /Admin/Roles
 		[Authorize(Roles = "Administrator")]
 		#region public ActionResult Roles()
@@ -559,6 +562,7 @@ namespace Mooshak2.Controllers
 
 		// *** COURSES *** //
 
+
 		// GET: /Admin/Courses
 		[Authorize(Roles = "Administrator")]
 		#region public ActionResult Courses()
@@ -642,6 +646,8 @@ namespace Mooshak2.Controllers
 
 		// *** UTILITIES *** //
 
+
+		// Kommenta Kóða
 		#region public ApplicationUserManager UserManager
 		public ApplicationUserManager UserManager
 		{
@@ -658,6 +664,7 @@ namespace Mooshak2.Controllers
 		}
 		#endregion
 
+		// Kommenta Kóða
 		#region public ApplicationRoleManager RoleManager
 		public ApplicationRoleManager RoleManager
 		{
@@ -674,6 +681,7 @@ namespace Mooshak2.Controllers
 		}
 		#endregion
 
+		// Kommenta Kóða
 		#region private List<SelectListItem> GetAllRolesAsSelectList()
 		private List<SelectListItem> GetAllRolesAsSelectList()
 		{
@@ -707,12 +715,13 @@ namespace Mooshak2.Controllers
 		}
 		#endregion
 
-		#region private CourseViewModel GetCourseByName(string paramName)
-		private CourseViewModel GetCourseByName(string paramName)
+		// Kommenta Kóða
+		#region private CourseViewModel GetCourseByName(string name)
+		private CourseViewModel GetCourseByName(string name)
 		{
 			CourseViewModel course = new CourseViewModel();
 
-			var result = _db.Courses.Where(x => x.Name == paramName).SingleOrDefault();
+			var result = _db.Courses.Where(x => x.Name == name).SingleOrDefault();
 
 			if (result != null)
 			{
@@ -724,6 +733,7 @@ namespace Mooshak2.Controllers
 		}
 		#endregion
 
+		// Kommenta Kóða og breyta nöfnum á breytum
 		#region private void DeleteCourse(CourseViewModel paramCourseViewModel)
 		private void DeleteCourse(CourseViewModel paramCourseViewModel)
 		{
@@ -739,6 +749,7 @@ namespace Mooshak2.Controllers
 		}
 		#endregion
 
+		// Kommenta Kóða og breyta nöfnum á breytum
 		#region private ExpandedUserDTO GetUser(string paramUserName)
 		private UserViewModel GetUser(string paramUserName)
 		{
@@ -759,6 +770,7 @@ namespace Mooshak2.Controllers
 		}
 		#endregion
 
+		// Kommenta Kóða og breyta nöfnum á breytum
 		#region private ExpandedUserDTO UpdateDTOUser(ExpandedUserDTO objExpandedUserDTO)
 		private UserViewModel UpdateDTOUser(UserViewModel paramExpandedUserDTO)
 		{
@@ -810,6 +822,7 @@ namespace Mooshak2.Controllers
 		}
 		#endregion
 
+		// Kommenta Kóða og breyta nöfnum á breytum
 		#region private void DeleteUser(ExpandedUserDTO paramExpandedUserDTO)
 		private void DeleteUser(UserViewModel paramExpandedUserDTO)
 		{
@@ -828,6 +841,7 @@ namespace Mooshak2.Controllers
 		}
 		#endregion
 
+		// Kommenta Kóða og breyta nöfnum á breytum
 		#region private UserAndRolesDTO GetUserAndRoles(string UserName)
 		private UserAndRolesViewModel GetUserAndRoles(string UserName)
 		{
@@ -858,6 +872,7 @@ namespace Mooshak2.Controllers
 		}
 		#endregion
 
+		// Kommenta Kóða og breyta nöfnum á breytum
 		#region private List<string> RolesUserIsNotIn(string UserName)
 		private List<string> RolesUserIsNotIn(string UserName)
 		{

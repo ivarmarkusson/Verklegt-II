@@ -18,6 +18,7 @@
 			<tr>
 				<th>Course</th>
 				<th>Assignment</th>
+				<th>Milestone</th>
 				<th>DueDate</th>
 			</tr>
 		</thead>
@@ -27,9 +28,10 @@
 				<tr>
 					<td>@Html.DisplayFor(modelItem => item.CourseName)</td>
 					<td>@Html.DisplayFor(modelItem => item.Title)</td>
+					<td>ATH: Á eftir að útfæra</td>
 					<td>@Html.DisplayFor(modelItem => item.DueDate)</td>
 					<td>
-						@Html.ActionLink("Delete", "DeleteAssignment", new { Name = item.Title },
+						@Html.ActionLink("Delete", "DeleteAssignment", new { Title = item.Title },
 							new { onclick = "return confirm('Are you sure you wish to delete this Assignment?');" })
 					</td>
 				</tr>

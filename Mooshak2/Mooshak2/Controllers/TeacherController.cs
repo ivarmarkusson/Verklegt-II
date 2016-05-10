@@ -82,6 +82,7 @@ namespace Mooshak2.Controllers
 
 		// POST: /Teacher/CreateAssignments/
 		[HttpPost]
+		[Authorize(Roles = "Teacher")]
 		#region public ActionResult CreateAssignments(AssignmentViewModel model)
 		[Authorize(Roles = "Teacher")]
 		public ActionResult CreateAssignments(AssignmentViewModel model)
@@ -101,9 +102,60 @@ namespace Mooshak2.Controllers
 		}
 		#endregion
 
+		// GET: /Teacher/DeleteAssignment/
+
+		[Authorize(Roles = "Teacher")]
+		public ActionResult DeleteAssignment(string title)
+		{
+			AssignmentViewModel assignmentViewModel = getAssignmentByTitle(title);
+
+			if (assignmentViewModel != null)
+			{
+				// Hér þarf að bæta við logic
+				// til að eyða milestones þegar
+				// assignment er eytt
+
+				DeleteAssignment(assignmentViewModel);
+			}
+			return Redirect("~/Teacher/Assignments");
+		}
+
 
 		// *** SERVICES *** ///
 
-	
+		// Kommenta Kóða
+		#region private AssignmentViewModel getCourseByTitle(string title)
+		private AssignmentViewModel getAssignmentByTitle(string title)
+		{
+			AssignmentViewModel assignment = new AssignmentViewModel();
+			var result = _db.Assignments.Where(x => x.Title == title).SingleOrDefault();
+
+			if (result != null)
+			{
+				assignment.ID = result.ID;
+				assignment.Title = result.Title;
+				assignment.DueDate = result.DueDate;
+				assignment.CourseID = result.CourseID;
+			}
+			return assignment;
+		}
+		#endregion
+
+		// Kommenta Kóða
+		#region private void DeleteAssignment(AssignmentViewModel assignmentViewModel)
+		private void DeleteAssignment(AssignmentViewModel assignmentViewModel)
+		{
+			Assignment assignment = _db.Assignments
+				.Where(x => x.Title == assignmentViewModel.Title)
+				.SingleOrDefault();
+
+			if (assignment != null)
+			{
+				_db.Assignments.Remove(assignment);
+				_db.SaveChanges();
+			}
+		}
+		#endregion
+
 	}
 }
