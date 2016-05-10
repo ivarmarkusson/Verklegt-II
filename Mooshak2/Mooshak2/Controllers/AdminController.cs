@@ -132,7 +132,7 @@ namespace Mooshak2.Controllers
 		[Authorize(Roles = "Administrator")]
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		#region public ActionResult CreateUser(UserViewModel paramUserViewModel)
+		#region public ActionResult CreateUser(UserViewModel model)
 		public ActionResult CreateUser(UserViewModel model)
 		{
 			try

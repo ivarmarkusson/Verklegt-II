@@ -1,0 +1,39 @@
+﻿@model List<Mooshak2.Models.ViewModels.AssignmentViewModel>
+
+@{
+	ViewBag.Title = "Assignments";
+}
+
+<br />
+<p>
+	@Html.ActionLink("Create Assignments", "CreateAssignments", null, new { @class = "btn btn-info" })
+
+</p>
+<br />
+
+
+<div class="table-responsive">
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Course</th>
+				<th>Assignment</th>
+				<th>DueDate</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model)
+			{
+				<tr>
+					<td>@Html.DisplayFor(modelItem => item.CourseName)</td>
+					<td>@Html.DisplayFor(modelItem => item.Title)</td>
+					<td>@Html.DisplayFor(modelItem => item.DueDate)</td>
+					<td>
+						@Html.ActionLink("Delete", "DeleteAssignment", new { Name = item.Title },
+							new { onclick = "return confirm('Are you sure you wish to delete this Assignment?');" })
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>
