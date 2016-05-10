@@ -100,7 +100,7 @@ body {
  */
 
 .main {
-  padding: 20px;
+  padding: 14px;
 }
 @media (min-width: 768px) {
   .main {
