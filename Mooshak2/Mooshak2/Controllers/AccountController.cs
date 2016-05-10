@@ -23,6 +23,7 @@ namespace Mooshak2.Controllers
 		// Implementation Added (Mooshak)
 		private ApplicationRoleManager _roleManager;
 
+		#region Managers
 		public AccountController()
         {
         }
@@ -67,6 +68,7 @@ namespace Mooshak2.Controllers
 				_roleManager = value;
 			}
 		}
+		#endregion
 
 		// Implementation Added (Mooshak)
 		#region /Account/Login

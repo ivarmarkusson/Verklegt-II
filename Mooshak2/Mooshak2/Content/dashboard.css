@@ -2,6 +2,11 @@
  * Base structure
  */
 
+.role-title {
+	text-align:center;
+	font-weight:700;
+}
+
 /* Move down content because we have a fixed navbar that is 50px tall */
 body {
   padding-top: 100px;
@@ -83,7 +88,7 @@ body {
     text-decoration:solid;
 	text-align:center;
 	font-weight:600;
-	margin:10px 20px;
+	margin:6px 20px;
 }
 .nav-sidebar > li > a:hover {
 	background-color:#428bca;
@@ -130,4 +135,8 @@ body {
 .placeholder img {
   display: inline-block;
   border-radius: 50%;
+}
+
+.login-in-panel {
+	background-color:#CC6666;
 }

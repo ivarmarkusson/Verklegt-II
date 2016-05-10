@@ -25,15 +25,15 @@
 
 					@if (User.IsInRole("Administrator"))
 					{
-						<li>@Html.ActionLink("Administrator", "Index", "Admin")</li>
+						<li>@Html.ActionLink("Administrator", "Index", "Home")</li>
 					}
 					@if (User.IsInRole("Teacher"))
 					{
-						<li>@Html.ActionLink("Teacher", "Index", "Teacher")</li>
+						<li>@Html.ActionLink("Teacher", "Index", "Home")</li>
 					}
 					@if (User.IsInRole("Student"))
 					{
-						<li>@Html.ActionLink("Student", "Index", "Student")</li>
+						<li>@Html.ActionLink("Student", "Index", "Home")</li>
 					}
 
                 </ul>
@@ -45,29 +45,33 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-3 col-md-2 sidebar">
+				
 				<ul class="nav nav-sidebar">
-
 					@if (User.IsInRole("Administrator"))
 					{
-						<li>@Html.ActionLink("Home", "Index", "Admin")</li>
+						<li><p class="role-title">Admin</p></li>
 						<li>@Html.ActionLink("Courses", "Courses", "Admin")</li>
 						<li>@Html.ActionLink("Users", "Users", "Admin")</li>
 						<li>@Html.ActionLink("Roles", "Roles", "Admin")</li>
 					}
+				</ul>
+
+				<ul class="nav nav-sidebar">
 					@if (User.IsInRole("Teacher"))
 					{
+						<li><p class="role-title">Teachers</p></li>
 						<li>@Html.ActionLink("Assignments", "Assignments", "Teacher")</li>
-						<li>@Html.ActionLink("Review Assignment", "ReviewAssignment", "Teacher")</li>
-						<li>@Html.ActionLink("Settings", "Settings", "Teacher")</li>
+						<li>@Html.ActionLink("Submissions", "Submissions", "Teacher")</li>
 					}
+				</ul>
+
+				<ul class="nav nav-sidebar">
 					@if (User.IsInRole("Student"))
 					{
-						<li>@Html.ActionLink("Overview", "Overview", "Student")</li>
+						<li><p class="role-title">Students</p></li>
 						<li>@Html.ActionLink("Submit Solution", "SubmitSolution", "Student")</li>
 						<li>@Html.ActionLink("Description", "Description", "Student")</li>
-						<li>@Html.ActionLink("Settings", "Settings", "Student")</li>
 					}
-					
 				</ul>
 			</div>
 
