@@ -103,8 +103,8 @@ namespace Mooshak2.Controllers
 		#endregion
 
 		// GET: /Teacher/DeleteAssignment/
-
 		[Authorize(Roles = "Teacher")]
+		#region public ActionResult DeleteAssignment(string title)
 		public ActionResult DeleteAssignment(string title)
 		{
 			AssignmentViewModel assignmentViewModel = getAssignmentByTitle(title);
@@ -119,9 +119,17 @@ namespace Mooshak2.Controllers
 			}
 			return Redirect("~/Teacher/Assignments");
 		}
+		#endregion
+
+
+		// *** SOLUTIONS *** //
+
+		
+
 
 
 		// *** SERVICES *** ///
+
 
 		// Kommenta Kóða
 		#region private AssignmentViewModel getCourseByTitle(string title)

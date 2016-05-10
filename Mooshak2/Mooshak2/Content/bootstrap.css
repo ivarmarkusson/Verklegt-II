@@ -564,7 +564,7 @@ h4 small,
 
 ul,
 ol {
-  margin-top: 0;
+  margin-top: 6px;
   margin-bottom: 10px;
 }
 
@@ -784,8 +784,8 @@ pre code {
 }
 
 .row {
-  margin-right: -15px;
-  margin-left: -15px;
+  margin-right: 0px;
+  margin-left: 0px;
 }
 
 .row:before,
@@ -2089,11 +2089,14 @@ fieldset[disabled] .btn-default.active {
   border-color: #cccccc;
 }
 
+
 .btn-primary {
   color: #ffffff;
   background-color: #428bca;
   border-color: #357ebd;
 }
+
+
 
 .btn-primary:hover,
 .btn-primary:focus,
