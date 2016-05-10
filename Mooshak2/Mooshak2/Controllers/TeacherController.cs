@@ -122,9 +122,14 @@ namespace Mooshak2.Controllers
 		#endregion
 
 
-		// *** SOLUTIONS *** //
+		// *** SUBMISSIONS *** //
 
-		
+
+		[Authorize(Roles = "Teacher")]
+		public ActionResult Submissions()
+		{
+			return View();
+		}
 
 
 

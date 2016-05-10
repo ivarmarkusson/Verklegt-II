@@ -327,6 +327,7 @@
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Teacher\Assignments.cshtml" />
     <Content Include="Views\Teacher\CreateAssignments.cshtml" />
+    <Content Include="Views\Teacher\Submissions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Pictures\" />

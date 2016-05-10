@@ -48,5 +48,7 @@ namespace Mooshak2.Models
 		[Display(Name = "User Name")]
 		public string UserName { get; set; }
 		public List<UserRoleViewModel> colUserRoleDTO { get; set; }
+
 	}
+	
 }

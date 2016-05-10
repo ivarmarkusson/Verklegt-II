@@ -122,8 +122,21 @@ namespace Mooshak2.Controllers
 		#region public ActionResult CreateUser()
 		public ActionResult CreateUser()
 		{
-			UserViewModel user = new UserViewModel();
+			List<CourseViewModel> listOfCourses = new List<CourseViewModel>();
+			var result = _db.Courses.ToList();
 
+			foreach (var item in result)
+			{
+				CourseViewModel course = new CourseViewModel();
+
+				course.ID = item.ID;
+				course.Name = item.Name;
+
+				listOfCourses.Add(course);
+			}
+
+			UserViewModel user = new UserViewModel();
+			user.Courses = listOfCourses;
 			ViewBag.Roles = GetAllRolesAsSelectList();
 
 			return View(user);
