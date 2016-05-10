@@ -50,7 +50,7 @@ namespace Mooshak2.Controllers
 				assignmentViewModel.DueDate = item.DueDate;
 
 				assignmentViewModel.CourseName = _db.Courses
-													.Where(x => x.ID == item.ID)
+													.Where(x => x.ID == item.CourseID)
 													.Select(x => x.Name).SingleOrDefault();
 
 				theList.Add(assignmentViewModel);
