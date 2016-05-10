@@ -771,11 +771,11 @@ namespace Mooshak2.Controllers
 		#endregion
 
 		// Kommenta Kóða og breyta nöfnum á breytum
-		#region private ExpandedUserDTO UpdateDTOUser(ExpandedUserDTO objExpandedUserDTO)
-		private UserViewModel UpdateDTOUser(UserViewModel paramExpandedUserDTO)
+		#region private UserViewModel UpdateDTOUser(UserViewModel model)
+		private UserViewModel UpdateDTOUser(UserViewModel model)
 		{
 			ApplicationUser result =
-				UserManager.FindByName(paramExpandedUserDTO.UserName);
+				UserManager.FindByName(model.UserName);
 
 			// If we could not find the user, throw an exception
 			if (result == null)
@@ -785,8 +785,8 @@ namespace Mooshak2.Controllers
 
 
 
-			result.Email = paramExpandedUserDTO.Email.Trim();
-			result.UserName = paramExpandedUserDTO.Email.Trim();
+			result.Email = model.Email.Trim();
+			result.UserName = model.Email.Trim();
 
 			// Lets check if the account needs to be unlocked
 			if (UserManager.IsLockedOut(result.Id))
@@ -798,7 +798,7 @@ namespace Mooshak2.Controllers
 			UserManager.Update(result);
 
 			// Was a password sent across?
-			if (!string.IsNullOrEmpty(paramExpandedUserDTO.Password))
+			if (!string.IsNullOrEmpty(model.Password))
 			{
 				// Remove current password
 				var removePassword = UserManager.RemovePassword(result.Id);
@@ -808,7 +808,7 @@ namespace Mooshak2.Controllers
 					var AddPassword =
 						UserManager.AddPassword(
 							result.Id,
-							paramExpandedUserDTO.Password
+							model.Password
 							);
 
 					if (AddPassword.Errors.Count() > 0)
@@ -818,7 +818,7 @@ namespace Mooshak2.Controllers
 				}
 			}
 
-			return paramExpandedUserDTO;
+			return model;
 		}
 		#endregion
 
