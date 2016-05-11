@@ -10,6 +10,7 @@ namespace Mooshak2.Models.Entities
 		public int ID { get; set; }
 		public int CourseID { get; set; }
 		public string Title { get; set; }
+		public DateTime StartDate { get; set; }
 		public DateTime DueDate { get; set; }
 	}
 }
