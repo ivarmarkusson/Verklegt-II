@@ -94,6 +94,8 @@ namespace Mooshak2.Controllers
 				assignment.CourseID = model.CourseID;
 				assignment.Title = model.Title;
 				assignment.DueDate = model.DueDate;
+                assignment.StartDate = model.Startdate;
+                assignment.Languages = model.Languages;
 
 				_db.Assignments.Add(assignment);
 				_db.SaveChanges();

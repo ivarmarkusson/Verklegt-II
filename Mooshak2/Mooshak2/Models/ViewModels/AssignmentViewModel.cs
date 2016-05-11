@@ -11,6 +11,8 @@ namespace Mooshak2.Models.ViewModels
 		public int CourseID { get; set; }
 		public string Title { get; set; }
 		public DateTime DueDate { get; set; }
+        public DateTime Startdate { get; set; }
+        public string Languages { get; set; }
 		public string CourseName { get; set; }
 	}
 }
