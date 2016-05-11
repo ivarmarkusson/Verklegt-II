@@ -229,6 +229,7 @@ namespace Mooshak2.Controllers
 
 				UserViewModel udatedUserViewModel = UpdateDTOUser(model);
 
+
 				if (udatedUserViewModel == null)
 				{
 					return HttpNotFound();
@@ -642,6 +643,48 @@ namespace Mooshak2.Controllers
 			return Redirect("~/Admin/Courses");
 		}
 		#endregion
+
+		// GET: /Admin/ConnectsUsers/
+		[Authorize(Roles = "Administrator")]
+		public ActionResult ConnectUsers(int? courseID)
+		{
+			List<UserViewModel> ViewModelUsers = new List<UserViewModel>();
+
+			var result = UserManager.Users.ToList();
+
+			foreach (var item in result)
+			{
+				if (item.CourseID != courseID)
+				{
+					UserViewModel userViewModel = new UserViewModel();
+
+					userViewModel.UserName = item.UserName;
+
+					ViewModelUsers.Add(userViewModel);
+				}
+			}
+
+			ViewBag.CourseID = courseID;
+
+			return View(ViewModelUsers);
+		}
+
+
+		// GET: /Admin/ConnectsUsers/
+		[Authorize(Roles = "Administrator")]
+		public ActionResult AddToCourse(string userName, int courseID)
+		{
+			ApplicationUser user = UserManager.FindByName(userName);
+
+			user.CourseID = courseID;
+
+			UserManager.Update(user);
+
+			string url = "~/Admin/ConnectUsers?courseID=" + courseID.ToString();
+
+			// Má laga seinna
+			return Redirect(url);
+		}
 
 
 		// *** UTILITIES *** //

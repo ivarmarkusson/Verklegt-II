@@ -96,6 +96,7 @@ namespace Mooshak2.Controllers
 				assignment.DueDate = model.DueDate;
                 assignment.StartDate = model.Startdate;
                 assignment.Languages = model.Languages;
+				assignment.GroupSize = model.GroupSize;
 
 				_db.Assignments.Add(assignment);
 				_db.SaveChanges();
