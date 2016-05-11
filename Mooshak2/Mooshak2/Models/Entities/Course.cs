@@ -9,6 +9,5 @@ namespace Mooshak2.Models.Entities
 	{
 		public int ID { set; get; }
 		public string Name { set; get; }
-        public string UserID { set; get; }
 	}
 }
