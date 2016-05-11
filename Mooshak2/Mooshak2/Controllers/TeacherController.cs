@@ -50,8 +50,12 @@ namespace Mooshak2.Controllers
 				assignmentViewModel.DueDate = item.DueDate;
 
 				assignmentViewModel.CourseName = _db.Courses
-													.Where(x => x.ID == item.CourseID)
-													.Select(x => x.Name).SingleOrDefault();
+														.Where(x => x.ID == item.CourseID)
+														.Select(x => x.Name).SingleOrDefault();
+
+				assignmentViewModel.MilestoneTitle = _db.Milestones.Where(x => x.AssignmentID == item.ID)
+														.Select(x => x.Title)
+														.SingleOrDefault();
 
 				theList.Add(assignmentViewModel);
 			}
@@ -96,14 +100,21 @@ namespace Mooshak2.Controllers
 				assignment.DueDate = model.DueDate;
                 assignment.StartDate = model.Startdate;
                 assignment.Languages = model.Languages;
-<<<<<<< HEAD
-				assignment.GroupSize = model.GroupSize;
-=======
                 assignment.GroupSize = model.GroupSize;
->>>>>>> 3ee330c12f9b87d9c0ce8f399222606d0d258c75
 
 				_db.Assignments.Add(assignment);
 				_db.SaveChanges();
+
+				var milestone = new Milestone();
+
+				milestone.Title = model.MilestoneTitle;
+				milestone.AssignmentID = assignment.ID;
+				milestone.Percentage = model.MilestonePercentage;
+
+				_db.Milestones.Add(milestone);
+				_db.SaveChanges();
+
+
 			}
 			return Redirect("~/Teacher/Assignments");	
 		}
@@ -127,6 +138,10 @@ namespace Mooshak2.Controllers
 			return Redirect("~/Teacher/Assignments");
 		}
 		#endregion
+
+
+		// *** MILESTONES *** //
+
 
 
 		// *** SUBMISSIONS *** //

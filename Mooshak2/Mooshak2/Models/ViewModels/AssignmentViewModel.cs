@@ -15,7 +15,8 @@ namespace Mooshak2.Models.ViewModels
         public string Languages { get; set; }
         public int GroupSize { get; set; }
 		public string CourseName { get; set; }
-		public int GroupSize { get; set; }
+		public string MilestoneTitle { get; set; }
+		public double MilestonePercentage { get; set; }
 	}
 }
 
