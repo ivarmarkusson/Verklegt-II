@@ -13,6 +13,7 @@ namespace Mooshak2.Models.ViewModels
 		public DateTime DueDate { get; set; }
         public DateTime Startdate { get; set; }
         public string Languages { get; set; }
+        public int GroupSize { get; set; }
 		public string CourseName { get; set; }
 		public int GroupSize { get; set; }
 	}

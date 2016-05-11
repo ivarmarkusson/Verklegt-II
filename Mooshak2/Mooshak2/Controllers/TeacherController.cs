@@ -96,7 +96,11 @@ namespace Mooshak2.Controllers
 				assignment.DueDate = model.DueDate;
                 assignment.StartDate = model.Startdate;
                 assignment.Languages = model.Languages;
+<<<<<<< HEAD
 				assignment.GroupSize = model.GroupSize;
+=======
+                assignment.GroupSize = model.GroupSize;
+>>>>>>> 3ee330c12f9b87d9c0ce8f399222606d0d258c75
 
 				_db.Assignments.Add(assignment);
 				_db.SaveChanges();
