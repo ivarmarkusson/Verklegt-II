@@ -13,5 +13,6 @@ namespace Mooshak2.Models.Entities
 		public DateTime StartDate { get; set; }
 		public DateTime DueDate { get; set; }
         public string Languages { get; set; }
+        public int GroupSize { get; set; }
 	}
 }

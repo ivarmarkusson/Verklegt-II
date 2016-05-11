@@ -225,21 +225,17 @@
     <Compile Include="Migrations\201605080231000_MilestoneID.Designer.cs">
       <DependentUpon>201605080231000_MilestoneID.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201605082329576_something.cs" />
-    <Compile Include="Migrations\201605082329576_something.Designer.cs">
-      <DependentUpon>201605082329576_something.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201605082338335_ListUsersInCourse.cs" />
-    <Compile Include="Migrations\201605082338335_ListUsersInCourse.Designer.cs">
-      <DependentUpon>201605082338335_ListUsersInCourse.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201605082340334_something1.cs" />
-    <Compile Include="Migrations\201605082340334_something1.Designer.cs">
-      <DependentUpon>201605082340334_something1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201605111438114_languagescolumnassignments.cs" />
     <Compile Include="Migrations\201605111438114_languagescolumnassignments.Designer.cs">
       <DependentUpon>201605111438114_languagescolumnassignments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605111508005_stuff.cs" />
+    <Compile Include="Migrations\201605111508005_stuff.Designer.cs">
+      <DependentUpon>201605111508005_stuff.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605111531020_databasegroupsize.cs" />
+    <Compile Include="Migrations\201605111531020_databasegroupsize.Designer.cs">
+      <DependentUpon>201605111531020_databasegroupsize.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entities\ApplicationUser.cs" />
@@ -358,17 +354,14 @@
     <EmbeddedResource Include="Migrations\201605080231000_MilestoneID.resx">
       <DependentUpon>201605080231000_MilestoneID.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605082329576_something.resx">
-      <DependentUpon>201605082329576_something.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605082338335_ListUsersInCourse.resx">
-      <DependentUpon>201605082338335_ListUsersInCourse.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605082340334_something1.resx">
-      <DependentUpon>201605082340334_something1.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605111438114_languagescolumnassignments.resx">
       <DependentUpon>201605111438114_languagescolumnassignments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605111508005_stuff.resx">
+      <DependentUpon>201605111508005_stuff.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605111531020_databasegroupsize.resx">
+      <DependentUpon>201605111531020_databasegroupsize.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
