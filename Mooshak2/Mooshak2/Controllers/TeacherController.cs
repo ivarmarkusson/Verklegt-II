@@ -55,16 +55,10 @@ namespace Mooshak2.Controllers
 														.Where(x => x.ID == item.CourseID)
 														.Select(x => x.Name).SingleOrDefault();
 				
-
 				assignmentViewModel.MilestonesTitles = _db.Milestones.Where(X => X.AssignmentID == item.ID).Select(x => x.Title).ToList();
 
+				assignmentViewModel.MilestonesPercentages = _db.Milestones.Where(x => x.AssignmentID == item.ID).Select(x => x.Percentage).ToList();
 				
-
-				/*
-				assignmentViewModel.MilestoneTitle = _db.Milestones.Where(x => x.AssignmentID == item.ID)
-														.Select(x => x.Title)
-														.First();
-				*/
 				theList.Add(assignmentViewModel);
 			}
 			return View(theList);
