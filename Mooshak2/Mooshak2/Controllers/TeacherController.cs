@@ -3,6 +3,7 @@ using Mooshak2.Models.Entities;
 using Mooshak2.Models.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -105,6 +106,18 @@ namespace Mooshak2.Controllers
 					assignment.StartDate = model.Startdate;
 					assignment.Languages = model.Languages;
 					assignment.GroupSize = model.GroupSize;
+
+                    HttpPostedFileBase file = model.DescriptionFile;
+
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        var filename = Path.GetFileName(file.FileName);
+                        var path = Path.Combine(Server.MapPath("~/Content/Descriptions"), filename);
+                        assignment.DescriptionPath = path;
+                        assignment.DescriptionFileName = filename;
+                        file.SaveAs(path);
+                    }
+                    
 
 					_db.Assignments.Add(assignment);
 					_db.SaveChanges();

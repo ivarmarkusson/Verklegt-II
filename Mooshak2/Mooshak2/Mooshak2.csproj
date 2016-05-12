@@ -238,6 +238,10 @@
     <Compile Include="Migrations\201605111531020_databasegroupsize.Designer.cs">
       <DependentUpon>201605111531020_databasegroupsize.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605121845367_descriptionfile.cs" />
+    <Compile Include="Migrations\201605121845367_descriptionfile.Designer.cs">
+      <DependentUpon>201605121845367_descriptionfile.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entities\ApplicationUser.cs" />
     <Compile Include="Models\Entities\Assignment.cs" />
@@ -368,6 +372,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605111531020_databasegroupsize.resx">
       <DependentUpon>201605111531020_databasegroupsize.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605121845367_descriptionfile.resx">
+      <DependentUpon>201605121845367_descriptionfile.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
