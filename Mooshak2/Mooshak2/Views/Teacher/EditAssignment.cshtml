@@ -1,0 +1,97 @@
+﻿
+@model Mooshak2.Models.ViewModels.AssignmentViewModel
+
+@using (Html.BeginForm("EditAssignment", "Teacher", FormMethod.Post))
+{
+	<fieldset>
+		<legend>Edit Assignment: @Model.Title</legend>
+
+		<div class="form-group">
+			<label>
+				Title
+				<input type="text" class="form-control" id="Title" name="Title" value="@Model.Title">
+			</label>
+		</div>
+
+		<div class="form-group">
+			<label>
+				Open
+				<input type="datetime-local" class="form-control" id="Open" name="StartDate" value="@Model.Startdate">
+			</label>
+		</div>
+
+		<div class="form-group">
+			<label>
+				Close
+				<input type="datetime-local" class="form-control" id="DueDate" name="DueDate" value="@Model.DueDate">
+			</label>
+		</div>
+
+		<div class="form-group">
+			<label>
+				Group size
+				<select name="GroupSize" class="form-control">
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					<option value="10">10</option>
+				</select>
+			</label>
+		</div>
+
+		<div>
+			<label>
+				Description
+				<input type="file" name="description" />
+			</label>
+		</div>
+
+		<div class="subassignment">
+			<h3>Milestone: @Model.MilestoneTitle</h3>
+
+			<div class="form-group">
+				<label>
+					Milestone Title
+					<input type="text" class="form-control" id="MilestoneTitle" name="MilestoneTitle" value="@Model.MilestoneTitle">
+				</label>
+			</div>
+
+			<div class="form-group">
+				<label>
+					Percentage
+					<input type="text" class="form-control" id="MilestonePercentage" name="MilestonePercentage" value="@Model.MilestonePercentage">
+				</label>
+			</div>
+
+			<div class="form-group">
+				<label>
+					Submission limit
+					<select name="SubmissionLimit1" class="form-control" id="SubmissionLimit1">
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
+						<option value="10">10</option>
+					</select>
+				</label>
+			</div>
+
+		
+
+		<input type="submit" class="btn btn-info" value="Edit Assignment">
+
+	</fieldset>
+}
+
+<br />

@@ -4,6 +4,7 @@ using Mooshak2.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -88,43 +89,128 @@ namespace Mooshak2.Controllers
 		[HttpPost]
 		[Authorize(Roles = "Teacher")]
 		#region public ActionResult CreateAssignments(AssignmentViewModel model)
-		[Authorize(Roles = "Teacher")]
 		public ActionResult CreateAssignments(AssignmentViewModel model)
 		{
 			if (ModelState.IsValid)
 			{
-				var assignment = new Assignment();
+				int dataCount = _db.Assignments.Where(x => x.CourseID == model.CourseID && x.Title == model.Title).Count();
 
-				assignment.CourseID = model.CourseID;
-				assignment.Title = model.Title;
-				assignment.DueDate = model.DueDate;
-                assignment.StartDate = model.Startdate;
-                assignment.Languages = model.Languages;
-                assignment.GroupSize = model.GroupSize;
+				if (dataCount == 0)
+				{
+					var assignment = new Assignment();
 
-				_db.Assignments.Add(assignment);
-				_db.SaveChanges();
+					assignment.CourseID = model.CourseID;
+					assignment.Title = model.Title;
+					assignment.DueDate = model.DueDate;
+					assignment.StartDate = model.Startdate;
+					assignment.Languages = model.Languages;
+					assignment.GroupSize = model.GroupSize;
 
-				var milestone = new Milestone();
+					_db.Assignments.Add(assignment);
+					_db.SaveChanges();
 
-				milestone.Title = model.MilestoneTitle;
-				milestone.AssignmentID = assignment.ID;
-				milestone.Percentage = model.MilestonePercentage;
+					var milestone = new Milestone();
 
-				_db.Milestones.Add(milestone);
-				_db.SaveChanges();
+					milestone.Title = model.MilestoneTitle;
+					milestone.AssignmentID = assignment.ID;
+					milestone.Percentage = model.MilestonePercentage;
 
-
+					_db.Milestones.Add(milestone);
+					_db.SaveChanges();
+				}
+				else
+				{
+					// kasta villu
+					return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+				}
 			}
 			return Redirect("~/Teacher/Assignments");	
 		}
 		#endregion
 
+		// GET: /Teacher/EditAssignment
+		[Authorize(Roles = "Teacher")]
+		public ActionResult EditAssignment(int assignmentID)
+		{
+			/*
+			Assignment assignment = _db.Assignments.Where(x => x.ID == assignmentID).SingleOrDefault();
+
+			AssignmentViewModel model = new AssignmentViewModel();
+
+			model.ID = assignmentID;
+			model.Title = assignment.Title;
+			model.Startdate = assignment.StartDate;
+			model.DueDate = assignment.DueDate;
+			model.CourseID = assignment.CourseID;
+			model.GroupSize = assignment.GroupSize;
+			model.Languages = assignment.Languages;
+			model.MilestonePercentage = assignment.M;
+
+			*/
+			return View();
+		}
+
+		// POST: /Teacher/EditAssignment
+		[HttpPost]
+		[Authorize(Roles = "Teacher")]
+		public ActionResult EditAssignment(AssignmentViewModel editModel)
+		{
+			/*
+			Assignment updatedAssignment = _db.Assignments.Where(x => x.ID == editModel.ID).SingleOrDefault();
+			Milestone updatedMilestone = _db.Milestones.Where(x => x.Title == editModel.MilestoneTitle).SingleOrDefault();
+
+
+			updatedAssignment.Title = editModel.Title;
+			updatedAssignment.StartDate = editModel.Startdate;
+			updatedAssignment.DueDate = editModel.DueDate;
+			updatedAssignment.CourseID = editModel.CourseID;
+			updatedAssignment.GroupSize = editModel.GroupSize;
+			updatedAssignment.Languages = editModel.Languages;
+
+			updatedMilestone.Title = editModel.MilestoneTitle;
+			updatedMilestone.Percentage = editModel.MilestonePercentage;
+
+			_db.SaveChanges();
+			*/
+
+			return Redirect("~/Teacher/Assignments");
+		}
+
+
 		// GET: /Teacher/DeleteAssignment/
 		[Authorize(Roles = "Teacher")]
 		#region public ActionResult DeleteAssignment(string title)
-		public ActionResult DeleteAssignment(string title)
+		public ActionResult DeleteAssignment(string milestoneTitle)
 		{
+
+			Milestone milestone = _db.Milestones.Where(x => x.Title == milestoneTitle).SingleOrDefault();
+			Assignment assignment = _db.Assignments.Where(x => x.ID == milestone.AssignmentID).SingleOrDefault();
+
+			int numberOfMilestones = _db.Milestones.Where(x => x.AssignmentID == assignment.ID).Count();
+
+			if (numberOfMilestones != 1)
+			{
+				_db.Milestones.Remove(milestone);
+				_db.SaveChanges();
+			}
+			else
+			{
+				_db.Milestones.Remove(milestone);
+				_db.SaveChanges();
+
+				_db.Assignments.Remove(assignment);
+				_db.SaveChanges();
+			}
+
+
+			
+
+			//AssignmentViewModel theAssignmentViewModel = 
+			//List<Milestone> milestones = _db.Milestones.Where(x => x.AssignmentID == 
+
+
+
+			/*
 			AssignmentViewModel assignmentViewModel = getAssignmentByTitle(title);
 
 			if (assignmentViewModel != null)
@@ -135,6 +221,7 @@ namespace Mooshak2.Controllers
 
 				DeleteAssignment(assignmentViewModel);
 			}
+			*/
 			return Redirect("~/Teacher/Assignments");
 		}
 		#endregion
@@ -183,6 +270,8 @@ namespace Mooshak2.Controllers
 			Assignment assignment = _db.Assignments
 				.Where(x => x.Title == assignmentViewModel.Title)
 				.SingleOrDefault();
+
+
 
 			if (assignment != null)
 			{
