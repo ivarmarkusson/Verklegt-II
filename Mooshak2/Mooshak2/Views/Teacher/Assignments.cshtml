@@ -18,6 +18,7 @@
 				<th>Course</th>
 				<th>Assignment</th>
 				<th>Milestone</th>
+				<th>Percentage</th>
 				<th>DueDate</th>
 			</tr>
 		</thead>
@@ -28,11 +29,17 @@
 					<td>@Html.DisplayFor(modelItem => item.CourseName)</td>
 					<td>@Html.DisplayFor(modelItem => item.Title)</td>
 					<td>
-						@foreach (var item2 in item.MilestonesTitles)
+						@foreach(var item2 in item.MilestonesTitles)
 						{
 							<p>@Html.DisplayFor(modelItem => item2)</p>
 						}
 
+					</td>
+					<td>
+						@foreach (var item3 in item.MilestonesPercentages)
+						{
+							<p>@Html.DisplayFor(modelItem => item3) %</p>
+						}
 					</td>
 					<td>@Html.DisplayFor(modelItem => item.DueDate)</td>
 					<td>
