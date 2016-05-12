@@ -27,7 +27,13 @@
 				<tr>
 					<td>@Html.DisplayFor(modelItem => item.CourseName)</td>
 					<td>@Html.DisplayFor(modelItem => item.Title)</td>
-					<td>@Html.DisplayFor(modelItem => item.MilestoneTitle)</td>
+					<td>
+						@foreach (var item2 in item.MilestonesTitles)
+						{
+							<p>@Html.DisplayFor(modelItem => item2)</p>
+						}
+
+					</td>
 					<td>@Html.DisplayFor(modelItem => item.DueDate)</td>
 					<td>
                         @Html.ActionLink("Add Milestone", "AddMilestone", new { assignmentID = item.ID }) |
