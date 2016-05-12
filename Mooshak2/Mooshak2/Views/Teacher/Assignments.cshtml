@@ -30,6 +30,7 @@
 					<td>@Html.DisplayFor(modelItem => item.MilestoneTitle)</td>
 					<td>@Html.DisplayFor(modelItem => item.DueDate)</td>
 					<td>
+                        @Html.ActionLink("Add Milestone", "AddMilestone", new { assignmentID = item.ID }) |
 						@Html.ActionLink("Edit", "EditAssignment", new { assignmentID = item.ID }) |
 						@Html.ActionLink("Delete", "DeleteAssignment", new { milestoneTitle = item.MilestoneTitle },
 							new { onclick = "return confirm('Are you sure you wish to delete this Assignment?');" })

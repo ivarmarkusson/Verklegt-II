@@ -57,7 +57,7 @@ namespace Mooshak2.Controllers
 
 				assignmentViewModel.MilestoneTitle = _db.Milestones.Where(x => x.AssignmentID == item.ID)
 														.Select(x => x.Title)
-														.SingleOrDefault();
+														.First();
 
 				theList.Add(assignmentViewModel);
 			}
@@ -139,10 +139,36 @@ namespace Mooshak2.Controllers
 			}
 			return Redirect("~/Teacher/Assignments");	
 		}
-		#endregion
+        #endregion
 
-		// GET: /Teacher/EditAssignment
-		[Authorize(Roles = "Teacher")]
+        // GET: /Teacher/EditAssignment
+        [Authorize(Roles = "Teacher")]
+        public ActionResult AddMilestone(int assignmentID)
+        {
+            AssignmentViewModel model = new AssignmentViewModel();
+            model.ID = assignmentID;
+            return View(model);
+        }
+
+        // POST: /Teacher/EditAssignment
+        [Authorize(Roles = "Teacher")]
+        [HttpPost]
+        public ActionResult AddMilestone(MilestoneViewModel model)
+        {
+            Milestone newMilestone = new Milestone();
+
+            newMilestone.AssignmentID = model.AssignmentID;
+            newMilestone.Percentage = model.Percentage;
+            newMilestone.Title = model.Title;
+
+            _db.Milestones.Add(newMilestone);
+            _db.SaveChanges();
+
+            return Redirect("~/Teacher/Assignments");
+        }
+
+        // GET: /Teacher/EditAssignment
+        [Authorize(Roles = "Teacher")]
 		public ActionResult EditAssignment(int assignmentID)
 		{
 			/*
