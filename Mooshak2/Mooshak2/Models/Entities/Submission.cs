@@ -9,7 +9,11 @@ namespace Mooshak2.Models.Entities
 	{
 		public int ID { get; set; }
 		public int MilestoneID { get; set; }
+		public string UserID { get; set; }
+		public string SubmissionFileName { get; set; }
+		public string SubmissionPath { get; set; }
 		public string Input { set; get; }
 		public string Output { set; get; }
+
 	}
 }
