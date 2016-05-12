@@ -334,12 +334,9 @@
     <Content Include="Views\Teacher\CreateAssignments.cshtml" />
     <Content Include="Views\Teacher\Submissions.cshtml" />
     <Content Include="Views\Admin\ConnectUsers.cshtml" />
-<<<<<<< HEAD
     <Content Include="Views\Teacher\EditAssignment.cshtml" />
-=======
     <Content Include="Views\Student\SubmitSolution.cshtml" />
     <Content Include="Views\Student\Description.cshtml" />
->>>>>>> 9180641489f3ee027d659457fdc2e24d3af3b681
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Pictures\" />
