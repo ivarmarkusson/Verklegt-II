@@ -3,29 +3,30 @@
     ViewBag.Title = "SubmitSolution";
 }
 
-@Html.ActionLink("Description", "Description", "Student", new { @class = "btn btn-info" })
+@using (Html.BeginForm("SubmitSolution", "Student", FormMethod.Post))
+{
+    <div>
+        <select class="form-control" name="assignments">
+            <option value="lab1">Lab 1</option>
+            <option value="lab2">Lab 2</option>
+        </select>
+    </div>
 
-<div>
-    <select class="form-control" name="assignments">
-        <option value="lab1">Lab 1</option>
-        <option value="lab2">Lab 2</option>
-    </select>
-</div>
+    <div class="form-group">
+        <input type="radio" name="milestones" value="MileStone 1"/>MileStone 1<br />
+        <input type="radio" name="milestones" value="MileStone 2"/>MileStone 2<br />
+        <input type="radio" name="milestones" value="MileStone 3"/>MileStone 3<br />
+    </div>
 
-<div class="form-group">
-    <input type="radio" name="milestones" value="MileStone 1"/>MileStone 1<br />
-    <input type="radio" name="milestones" value="MileStone 2"/>MileStone 2<br />
-    <input type="radio" name="milestones" value="MileStone 3"/>MileStone 3<br />
-</div>
+    <div class="form-group">
+        <textarea rows="4" columns="10" placeholder="Remark to teacher" name="remarks"></textarea>
+    </div>
 
-<div class="form-group">
-    <textarea rows="4" columns="10" placeholder="Remark to teacher" name="remarks"></textarea>
-</div>
+    <div class="form-group">
+        <input type="file" name="descriptioninput" />
+    </div>
 
-<div class="form-group">
-    <input type="file" name="descriptioninput" />
-</div>
-
-<div class="form-group">
-    <input type="submit" />
-</div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-info" value="Submit">
+    </div>
+}
