@@ -139,6 +139,19 @@ namespace Mooshak2.Controllers
                 nextSubmission.MilestoneID = submission.MilestoneID;
                 nextSubmission.MilestoneTitle = _db.Milestones.Where(x => x.ID == nextSubmission.MilestoneID).Select(x => x.Title).SingleOrDefault();
                 nextSubmission.SubmissionFileName = submission.SubmissionFileName;
+                nextSubmission.Output = submission.Output;
+
+                string expectedOutput = _db.Milestones.Where(x => x.ID == nextSubmission.MilestoneID).Select(x => x.MilestoneOutput1).SingleOrDefault();
+                
+                if (submission.Output == expectedOutput)
+                {
+                    nextSubmission.Status = "Accepted";
+                }
+                else
+                {
+                    nextSubmission.Status = "Incorrect Input";
+                }
+                 
 
                 models.Add(nextSubmission);
             }

@@ -656,7 +656,7 @@ namespace Mooshak2.Controllers
 
 			foreach (var item in result)
 			{
-				if (item.CourseID != courseID)
+				if (item.CourseID == 0)
 				{
 					UserViewModel userViewModel = new UserViewModel();
 

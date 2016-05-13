@@ -17,5 +17,6 @@ namespace Mooshak2.Models.ViewModels
         public string SubmissionPath { get; set; }
         public string Input { set; get; }
         public string Output { set; get; }
+        public string Status { set; get; }
     }
 }
