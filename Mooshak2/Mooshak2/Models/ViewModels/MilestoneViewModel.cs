@@ -15,5 +15,6 @@ namespace Mooshak2.Models.ViewModels
         public int SubmissionLimit { get; set; }
         public string MilestoneInput1 { get; set; }
         public string MilestoneOutput1 { get; set; }
+        public string AssignmentDescriptionFileName { get; set; }
     }
 }

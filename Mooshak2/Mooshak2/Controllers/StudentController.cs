@@ -36,6 +36,7 @@ namespace Mooshak2.Controllers
                 newModel.ID = milestone.ID;
                 newModel.Percentage = milestone.Percentage;
                 newModel.Title = milestone.Title;
+                newModel.AssignmentDescriptionFileName = _db.Assignments.Where(x => x.ID == milestone.AssignmentID).Select(x => x.DescriptionFileName).SingleOrDefault();
 
                 models.Add(newModel);
             }
@@ -153,7 +154,7 @@ namespace Mooshak2.Controllers
                 }
                 else
                 {
-                    nextSubmission.Status = "Incorrect Input";
+                    nextSubmission.Status = "Incorrect Output";
                 }
                  
 
