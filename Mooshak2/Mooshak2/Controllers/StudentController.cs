@@ -80,8 +80,25 @@ namespace Mooshak2.Controllers
             compiler.WaitForExit();
             compiler.Close();
 
-
-
+            if (System.IO.File.Exists(exeFilePath))
+            {
+                var processInfoExe = new ProcessStartInfo(exeFilePath, "");
+                processInfoExe.UseShellExecute = false;
+                processInfoExe.RedirectStandardOutput = true;
+                processInfoExe.RedirectStandardError = true;
+                processInfoExe.CreateNoWindow = true;
+                using (var processExe = new Process())
+                {
+                    processExe.StartInfo = processInfoExe;
+                    processExe.Start();
+                    // þurfum að setja innputin hér!
+                    var lines = new List<string>();
+                    while (!processExe.StandardOutput.EndOfStream)
+                    {
+                        lines.Add(processExe.StandardOutput.ReadLine());
+                    }
+                }
+            }
             return Redirect("~/Student/YourSubmissions");
         }
 

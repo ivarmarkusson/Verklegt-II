@@ -139,21 +139,24 @@ namespace Mooshak2.Controllers
 			}
 			return Redirect("~/Teacher/Assignments");	
 		}
-        #endregion
+		#endregion
 
-        // GET: /Teacher/EditAssignment
-        [Authorize(Roles = "Teacher")]
-        public ActionResult AddMilestone(int assignmentID)
+		// GET: /Teacher/AddMilestone
+		[Authorize(Roles = "Teacher")]
+		#region public ActionResult AddMilestone(int assignmentID)
+		public ActionResult AddMilestone(int assignmentID)
         {
             AssignmentViewModel model = new AssignmentViewModel();
             model.ID = assignmentID;
             return View(model);
         }
+		#endregion
 
-        // POST: /Teacher/EditAssignment
-        [Authorize(Roles = "Teacher")]
+		// POST: /Teacher/AddMilestone
+		[Authorize(Roles = "Teacher")]
         [HttpPost]
-        public ActionResult AddMilestone(MilestoneViewModel model)
+		#region public ActionResult AddMilestone(MilestoneViewModel model)
+		public ActionResult AddMilestone(MilestoneViewModel model)
         {
             Milestone newMilestone = new Milestone();
 
@@ -166,55 +169,7 @@ namespace Mooshak2.Controllers
 
             return Redirect("~/Teacher/Assignments");
         }
-
-        // GET: /Teacher/EditAssignment
-        [Authorize(Roles = "Teacher")]
-		public ActionResult EditAssignment(int assignmentID)
-		{
-			/*
-			Assignment assignment = _db.Assignments.Where(x => x.ID == assignmentID).SingleOrDefault();
-
-			AssignmentViewModel model = new AssignmentViewModel();
-
-			model.ID = assignmentID;
-			model.Title = assignment.Title;
-			model.Startdate = assignment.StartDate;
-			model.DueDate = assignment.DueDate;
-			model.CourseID = assignment.CourseID;
-			model.GroupSize = assignment.GroupSize;
-			model.Languages = assignment.Languages;
-			model.MilestonePercentage = assignment.M;
-
-			*/
-			return View();
-		}
-
-		// POST: /Teacher/EditAssignment
-		[HttpPost]
-		[Authorize(Roles = "Teacher")]
-		public ActionResult EditAssignment(AssignmentViewModel editModel)
-		{
-			/*
-			Assignment updatedAssignment = _db.Assignments.Where(x => x.ID == editModel.ID).SingleOrDefault();
-			Milestone updatedMilestone = _db.Milestones.Where(x => x.Title == editModel.MilestoneTitle).SingleOrDefault();
-
-
-			updatedAssignment.Title = editModel.Title;
-			updatedAssignment.StartDate = editModel.Startdate;
-			updatedAssignment.DueDate = editModel.DueDate;
-			updatedAssignment.CourseID = editModel.CourseID;
-			updatedAssignment.GroupSize = editModel.GroupSize;
-			updatedAssignment.Languages = editModel.Languages;
-
-			updatedMilestone.Title = editModel.MilestoneTitle;
-			updatedMilestone.Percentage = editModel.MilestonePercentage;
-
-			_db.SaveChanges();
-			*/
-
-			return Redirect("~/Teacher/Assignments");
-		}
-
+		#endregion
 
 		// GET: /Teacher/DeleteAssignment/
 		[Authorize(Roles = "Teacher")]
@@ -270,21 +225,23 @@ namespace Mooshak2.Controllers
 		}
 		#endregion
 
+
 		// *** SUBMISSIONS *** //
 
 
 		[Authorize(Roles = "Teacher")]
+		#region public ActionResult Submissions()
 		public ActionResult Submissions()
 		{
 			return View();
 		}
-
+		#endregion
 
 
 		// *** SERVICES *** ///
 
 
-		// Kommenta Kóða
+		// Get Course By Title Helper
 		#region private AssignmentViewModel getCourseByTitle(string title)
 		private AssignmentViewModel getAssignmentByTitle(string title)
 		{
@@ -302,15 +259,13 @@ namespace Mooshak2.Controllers
 		}
 		#endregion
 
-		// Kommenta Kóða
+		// Delete Assignment Helper
 		#region private void DeleteAssignment(AssignmentViewModel assignmentViewModel)
 		private void DeleteAssignment(AssignmentViewModel assignmentViewModel)
 		{
 			Assignment assignment = _db.Assignments
 				.Where(x => x.Title == assignmentViewModel.Title)
 				.SingleOrDefault();
-
-
 
 			if (assignment != null)
 			{

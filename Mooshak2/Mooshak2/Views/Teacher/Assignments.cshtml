@@ -44,7 +44,6 @@
 					<td>@Html.DisplayFor(modelItem => item.DueDate)</td>
 					<td>
                         @Html.ActionLink("Add", "AddMilestone", new { assignmentID = item.ID }) |
-						@Html.ActionLink("Edit", "EditAssignment", new { assignmentID = item.ID }) |
 						@Html.ActionLink("Delete", "ViewMilestones", new { assignmentID = item.ID })			
 					</td>
 				</tr>
