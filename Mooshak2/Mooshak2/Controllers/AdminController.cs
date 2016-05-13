@@ -89,30 +89,31 @@ namespace Mooshak2.Controllers
 
 				foreach (var item in result)
 				{
-					UserViewModel objUserViewModel = new UserViewModel();
+					UserViewModel userViewModel = new UserViewModel();
 
-					objUserViewModel.UserName = item.UserName;
-					objUserViewModel.Email = item.Email;
-					objUserViewModel.LockoutEndDateUtc = item.LockoutEndDateUtc;
+					userViewModel.UserName = item.UserName;
+					userViewModel.Email = item.Email;
+					userViewModel.LockoutEndDateUtc = item.LockoutEndDateUtc;
 
-					ViewModelUsers.Add(objUserViewModel);
+					ViewModelUsers.Add(userViewModel);
 				}
 
 				// Set the number of pages
-				var _UserDTOAsIPagedList =
+				// PagedList not used
+				var PagedList =
 					new StaticPagedList<UserViewModel>
 					(
 						ViewModelUsers, intPage, intPageSize, intTotalPageCount
 					);
 
-				return View(_UserDTOAsIPagedList);
+				return View(PagedList);
 			}
 			catch (Exception ex)
 			{
 				ModelState.AddModelError(string.Empty, "Error: " + ex);
-				List<UserViewModel> col_UserDTO = new List<UserViewModel>();
+				List<UserViewModel> userViewModel = new List<UserViewModel>();
 
-				return View(col_UserDTO.ToPagedList(1, 25));
+				return View(userViewModel.ToPagedList(1, 25));
 			}
 		}
 		#endregion
@@ -684,7 +685,6 @@ namespace Mooshak2.Controllers
 
 			string url = "~/Admin/ConnectUsers?courseID=" + courseID.ToString();
 
-			// Má laga seinna
 			return Redirect(url);
 		}
 		#endregion

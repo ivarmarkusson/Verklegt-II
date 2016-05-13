@@ -55,9 +55,11 @@ namespace Mooshak2.Controllers
 														.Where(x => x.ID == item.CourseID)
 														.Select(x => x.Name).SingleOrDefault();
 				
-				assignmentViewModel.MilestonesTitles = _db.Milestones.Where(X => X.AssignmentID == item.ID).Select(x => x.Title).ToList();
+				assignmentViewModel.MilestonesTitles = _db.Milestones.Where(X => X.AssignmentID == item.ID)
+														.Select(x => x.Title).ToList();
 
-				assignmentViewModel.MilestonesPercentages = _db.Milestones.Where(x => x.AssignmentID == item.ID).Select(x => x.Percentage).ToList();
+				assignmentViewModel.MilestonesPercentages = _db.Milestones.Where(x => x.AssignmentID == item.ID)
+														.Select(x => x.Percentage).ToList();
 				
 				theList.Add(assignmentViewModel);
 			}
@@ -94,7 +96,10 @@ namespace Mooshak2.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				int dataCount = _db.Assignments.Where(x => x.CourseID == model.CourseID && x.Title == model.Title).Count();
+				int dataCount = _db.Assignments
+									.Where(x => x.CourseID == model
+									.CourseID && x.Title == model.Title)
+									.Count();
 
 				if (dataCount == 0)
 				{
@@ -118,7 +123,6 @@ namespace Mooshak2.Controllers
                         file.SaveAs(path);
                     }
                     
-
 					_db.Assignments.Add(assignment);
 					_db.SaveChanges();
 
@@ -136,7 +140,6 @@ namespace Mooshak2.Controllers
 				}
 				else
 				{
-					// kasta villu
 					return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 				}
 			}
@@ -182,13 +185,16 @@ namespace Mooshak2.Controllers
 		#region public ActionResult DeleteAssignment(int assignmentID)
 		public ActionResult DeleteMilestone(int milestoneID, int assignmentID)
 		{
-			
-			Milestone milestone = _db.Milestones.Where(x => x.ID == milestoneID).SingleOrDefault();
+			Milestone milestone = _db.Milestones
+									.Where(x => x.ID == milestoneID)
+									.SingleOrDefault();
 
 			_db.Milestones.Remove(milestone);
 			_db.SaveChanges();
 
-			int milestoneCount = _db.Milestones.Where(x => x.AssignmentID == assignmentID).Count();
+			int milestoneCount = _db.Milestones
+									.Where(x => x.AssignmentID == assignmentID)
+									.Count();
 
 			if (milestoneCount == 0)
 			{
@@ -212,7 +218,9 @@ namespace Mooshak2.Controllers
 		{
 			List<MilestoneViewModel> milestones = new List<MilestoneViewModel>();
 
-			var results = _db.Milestones.Where(x => x.AssignmentID == assignmentID).ToList();
+			var results = _db.Milestones
+							.Where(x => x.AssignmentID == assignmentID)
+							.ToList();
 
 			foreach (var item in results)
 			{
