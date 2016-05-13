@@ -65,6 +65,7 @@ namespace Mooshak2.Controllers
                 newSubmission.SubmissionPath = path;
                 newSubmission.SubmissionFileName = filename;
 				newSubmission.UserID = userID;
+                
                 file.SaveAs(path);
             }
 

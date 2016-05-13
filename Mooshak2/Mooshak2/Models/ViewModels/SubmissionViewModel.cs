@@ -11,6 +11,7 @@ namespace Mooshak2.Models.ViewModels
         public int MilestoneID { get; set; }
         public string MilestoneTitle { get; set; }
         public string UserID { get; set; }
+        public string UserName { get; set; }
         public HttpPostedFileBase SubmissionFile { get; set; }
         public string SubmissionFileName { get; set; }
         public string SubmissionPath { get; set; }
