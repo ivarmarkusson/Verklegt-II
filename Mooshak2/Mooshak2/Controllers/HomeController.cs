@@ -4,9 +4,7 @@ namespace Mooshak2.Controllers
 {
 	public class HomeController : Controller
 	{
-		[Authorize(Roles = "Administrator")]
-		[Authorize(Roles = "Teacher")]
-		[Authorize(Roles = "Student")]
+		[Authorize(Roles = "Administrator, Student, Teacher")]
 		public ActionResult Index()
 		{
 			return View();
