@@ -55,9 +55,11 @@ namespace Mooshak2.Controllers
 														.Where(x => x.ID == item.CourseID)
 														.Select(x => x.Name).SingleOrDefault();
 				
-				assignmentViewModel.MilestonesTitles = _db.Milestones.Where(X => X.AssignmentID == item.ID).Select(x => x.Title).ToList();
+				assignmentViewModel.MilestonesTitles = _db.Milestones.Where(X => X.AssignmentID == item.ID)
+														.Select(x => x.Title).ToList();
 
-				assignmentViewModel.MilestonesPercentages = _db.Milestones.Where(x => x.AssignmentID == item.ID).Select(x => x.Percentage).ToList();
+				assignmentViewModel.MilestonesPercentages = _db.Milestones.Where(x => x.AssignmentID == item.ID)
+														.Select(x => x.Percentage).ToList();
 				
 				theList.Add(assignmentViewModel);
 			}
@@ -94,7 +96,10 @@ namespace Mooshak2.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				int dataCount = _db.Assignments.Where(x => x.CourseID == model.CourseID && x.Title == model.Title).Count();
+				int dataCount = _db.Assignments
+									.Where(x => x.CourseID == model
+									.CourseID && x.Title == model.Title)
+									.Count();
 
 				if (dataCount == 0)
 				{
@@ -118,7 +123,6 @@ namespace Mooshak2.Controllers
                         file.SaveAs(path);
                     }
                     
-
 					_db.Assignments.Add(assignment);
 					_db.SaveChanges();
 
@@ -127,13 +131,15 @@ namespace Mooshak2.Controllers
 					milestone.Title = model.MilestoneTitle;
 					milestone.AssignmentID = assignment.ID;
 					milestone.Percentage = model.MilestonePercentage;
+                    milestone.MilestoneInput1 = model.MilestoneInput1;
+                    milestone.MilestoneOutput1 = model.MilestoneOutput1;
+                    milestone.SubmissionLimit = model.MilestoneSubmissionLimit;
 
 					_db.Milestones.Add(milestone);
 					_db.SaveChanges();
 				}
 				else
 				{
-					// kasta villu
 					return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 				}
 			}
@@ -163,6 +169,9 @@ namespace Mooshak2.Controllers
             newMilestone.AssignmentID = model.AssignmentID;
             newMilestone.Percentage = model.Percentage;
             newMilestone.Title = model.Title;
+            newMilestone.MilestoneInput1 = model.MilestoneInput1;
+            newMilestone.MilestoneOutput1 = model.MilestoneOutput1;
+            newMilestone.SubmissionLimit = model.SubmissionLimit;
 
             _db.Milestones.Add(newMilestone);
             _db.SaveChanges();
@@ -176,13 +185,16 @@ namespace Mooshak2.Controllers
 		#region public ActionResult DeleteAssignment(int assignmentID)
 		public ActionResult DeleteMilestone(int milestoneID, int assignmentID)
 		{
-			
-			Milestone milestone = _db.Milestones.Where(x => x.ID == milestoneID).SingleOrDefault();
+			Milestone milestone = _db.Milestones
+									.Where(x => x.ID == milestoneID)
+									.SingleOrDefault();
 
 			_db.Milestones.Remove(milestone);
 			_db.SaveChanges();
 
-			int milestoneCount = _db.Milestones.Where(x => x.AssignmentID == assignmentID).Count();
+			int milestoneCount = _db.Milestones
+									.Where(x => x.AssignmentID == assignmentID)
+									.Count();
 
 			if (milestoneCount == 0)
 			{
@@ -206,7 +218,9 @@ namespace Mooshak2.Controllers
 		{
 			List<MilestoneViewModel> milestones = new List<MilestoneViewModel>();
 
-			var results = _db.Milestones.Where(x => x.AssignmentID == assignmentID).ToList();
+			var results = _db.Milestones
+							.Where(x => x.AssignmentID == assignmentID)
+							.ToList();
 
 			foreach (var item in results)
 			{
@@ -217,6 +231,9 @@ namespace Mooshak2.Controllers
 				model.Title = item.Title;
 				model.Percentage = item.Percentage;
 				model.Grade = item.Grade;
+                model.SubmissionLimit = item.SubmissionLimit;
+                model.MilestoneInput1 = item.MilestoneInput1;
+                model.MilestoneOutput1 = item.MilestoneOutput1;
 
 				milestones.Add(model);
 			}

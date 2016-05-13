@@ -20,6 +20,7 @@ namespace Mooshak2.Controllers
 
 		// *** SUBMISSIONS *** ///
 
+
 		// GET: /Student/SubmitSolution
 		[Authorize(Roles = "Student")]
 		#region public ActionResult SubmitSolution()
@@ -43,6 +44,7 @@ namespace Mooshak2.Controllers
             return View(models);
         }
 		#endregion
+
 
 		// POST: /Student/SubmitSolution
 		[Authorize(Roles = "Student")]

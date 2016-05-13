@@ -12,6 +12,7 @@ namespace Mooshak2.Models.Entities
 		public string Title { get; set; }
 		public double Percentage { get; set; }
 		public double Grade { get; set; }
+        public int SubmissionLimit { get; set; }
         public string MilestoneInput1 { get; set; }
         public string MilestoneOutput1 { get; set; }
 
