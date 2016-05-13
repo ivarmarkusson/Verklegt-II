@@ -46,7 +46,7 @@ namespace Mooshak2.Controllers
 
 		// POST: /Student/SubmitSolution
 		[Authorize(Roles = "Student")]
-        [HttpPost]
+        [HttpPost]  
 		#region public ActionResult SubmitSolution(SubmissionViewModel model)
 		public ActionResult SubmitSolution(SubmissionViewModel model)
         {
@@ -69,13 +69,11 @@ namespace Mooshak2.Controllers
                 file.SaveAs(path);
             }
 
-            _db.Submissions.Add(newSubmission);
-            _db.SaveChanges();
-
             var workingFolder = Server.MapPath("~/Content/Submissions");
             var exeFileName = filename.Replace(".cpp", ".exe");
-            var exeFilePath = workingFolder + exeFileName;
+            var exeFilePath = workingFolder + "\\" + exeFileName;
             var compilerFolder = "C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VC\\bin\\";
+            var milestoneInput = _db.Milestones.Where(x => model.MilestoneID == x.ID).Select(x => x.MilestoneInput1).SingleOrDefault();
 
             Process compiler = new Process();
             compiler.StartInfo.FileName = "cmd.exe";
@@ -96,6 +94,7 @@ namespace Mooshak2.Controllers
             {
                 var processInfoExe = new ProcessStartInfo(exeFilePath, "");
                 processInfoExe.UseShellExecute = false;
+                processInfoExe.RedirectStandardInput = true;
                 processInfoExe.RedirectStandardOutput = true;
                 processInfoExe.RedirectStandardError = true;
                 processInfoExe.CreateNoWindow = true;
@@ -103,12 +102,19 @@ namespace Mooshak2.Controllers
                 {
                     processExe.StartInfo = processInfoExe;
                     processExe.Start();
-                    // þurfum að setja innputin hér!
-                    var lines = new List<string>();
+                    processExe.StandardInput.WriteLine(milestoneInput);
+
+                    string lines = "";
                     while (!processExe.StandardOutput.EndOfStream)
                     {
-                        lines.Add(processExe.StandardOutput.ReadLine());
+                        lines = lines + processExe.StandardOutput.ReadLine();
+                        //lines.add(processExe.StandardOutput.ReadLine());
                     }
+                    newSubmission.Output = lines;
+                    processExe.StandardInput.Close();
+
+                    _db.Submissions.Add(newSubmission);
+                    _db.SaveChanges();
                 }
             }
             return Redirect("~/Student/YourSubmissions");
