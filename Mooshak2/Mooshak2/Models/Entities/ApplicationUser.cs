@@ -13,7 +13,7 @@ namespace Mooshak2.Models.Entities
 	{
 		// Mögulega þarf að bæta við fleiri properties
 		public string FullName { get; set; }
-		public int CourseID { get; set; }
+		public int? CourseID { get; set; }
 
 		public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
 		{

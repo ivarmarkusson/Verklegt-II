@@ -19,6 +19,7 @@ namespace Mooshak2.Models
 		public string PhoneNumber { get; set; }
 		public IEnumerable Roles { get; set; }
 		public int CourseID { get; set; }
+		public string CourseName { get; set; }
 
 	}
 	public class UserRolesViewModels

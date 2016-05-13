@@ -94,6 +94,12 @@ namespace Mooshak2.Controllers
 					userViewModel.UserName = item.UserName;
 					userViewModel.Email = item.Email;
 					userViewModel.LockoutEndDateUtc = item.LockoutEndDateUtc;
+					userViewModel.CourseName = _db.Courses.Where(x => x.ID == item.CourseID).Select(x => x.Name).SingleOrDefault();
+
+					if(userViewModel.CourseName == null)
+					{
+						userViewModel.CourseName = "No Course";
+					}
 
 					ViewModelUsers.Add(userViewModel);
 				}
@@ -164,8 +170,8 @@ namespace Mooshak2.Controllers
 
 				// Create user
 
-				var objNewAdminUser = new ApplicationUser { UserName = UserName, Email = Email };
-				var AdminUserCreateResult = UserManager.Create(objNewAdminUser, Password);
+				var objNewAdminUser = new ApplicationUser { UserName = UserName, Email = Email, CourseID = null };
+				var AdminUserCreateResult = UserManager.Create(objNewAdminUser, Password );
 
 				if (AdminUserCreateResult.Succeeded == true)
 				{
@@ -191,7 +197,7 @@ namespace Mooshak2.Controllers
 			{
 				ViewBag.Roles = GetAllRolesAsSelectList();
 				ModelState.AddModelError(string.Empty, "Error: " + ex);
-				return View("Create");
+				return View("CreateUser");
 			}
 		}
 		#endregion
@@ -656,7 +662,7 @@ namespace Mooshak2.Controllers
 
 			foreach (var item in result)
 			{
-				if (item.CourseID == 0)
+				if (item.CourseID == null)
 				{
 					UserViewModel userViewModel = new UserViewModel();
 

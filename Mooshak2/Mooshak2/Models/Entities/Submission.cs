@@ -14,11 +14,8 @@ namespace Mooshak2.Models.Entities
 		public string SubmissionPath { get; set; }
 		public string Input { set; get; }
 		public string Output { set; get; }
-<<<<<<< HEAD
         public bool Compiled { set; get; }
-=======
-        public bool Compiled { get; set; }
->>>>>>> bb969dfc0f9270e6233771b1184d96c5e3845d37
+
 
 	}
 }
