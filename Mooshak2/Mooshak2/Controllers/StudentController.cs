@@ -1,4 +1,5 @@
-﻿using Mooshak2.Models;
+﻿using Microsoft.AspNet.Identity;
+using Mooshak2.Models;
 using Mooshak2.Models.Entities;
 using Mooshak2.Models.ViewModels;
 using System;
@@ -14,10 +15,15 @@ namespace Mooshak2.Controllers
     public class StudentController : Controller
     {
         private ApplicationDbContext _db = new ApplicationDbContext();
+		private ApplicationUserManager _userManager;
 
-        // GET: Student
-        [Authorize(Roles = "Student")]
-        public ActionResult SubmitSolution()
+
+		// *** SUBMISSIONS *** ///
+
+		// GET: /Student/SubmitSolution
+		[Authorize(Roles = "Student")]
+		#region public ActionResult SubmitSolution()
+		public ActionResult SubmitSolution()
         {
             var milestones = _db.Milestones.ToList();
             
@@ -36,12 +42,16 @@ namespace Mooshak2.Controllers
 
             return View(models);
         }
+		#endregion
 
-        // POST: Student
-        [Authorize(Roles = "Student")]
+		// POST: /Student/SubmitSolution
+		[Authorize(Roles = "Student")]
         [HttpPost]
-        public ActionResult SubmitSolution(SubmissionViewModel model)
+		#region public ActionResult SubmitSolution(SubmissionViewModel model)
+		public ActionResult SubmitSolution(SubmissionViewModel model)
         {
+			var userID = User.Identity.GetUserId(); 
+
             Submission newSubmission = new Submission();
 
             newSubmission.MilestoneID = model.MilestoneID;
@@ -54,6 +64,7 @@ namespace Mooshak2.Controllers
             {
                 newSubmission.SubmissionPath = path;
                 newSubmission.SubmissionFileName = filename;
+				newSubmission.UserID = userID;
                 file.SaveAs(path);
             }
 
@@ -101,12 +112,16 @@ namespace Mooshak2.Controllers
             }
             return Redirect("~/Student/YourSubmissions");
         }
+		#endregion
 
 
-        [Authorize(Roles = "Student")]
-        public ActionResult YourSubmissions()
+		// GET: /Student/YourSubmission
+		[Authorize(Roles = "Student")]
+		#region public ActionResult YourSubmissions()
+		public ActionResult YourSubmissions()
         {
             return View();
         }
-    }
+		#endregion
+	}
 }
