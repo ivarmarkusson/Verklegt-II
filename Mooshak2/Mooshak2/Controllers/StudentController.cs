@@ -70,8 +70,15 @@ namespace Mooshak2.Controllers
             }
 
             var workingFolder = Server.MapPath("~/Content/Submissions");
-            var exeFileName = filename.Replace(".cpp", ".exe");
-            var exeFilePath = workingFolder + "\\" + exeFileName;
+            string exeFileName="";
+            string exeFilePath = "";
+            if (filename.EndsWith(".cpp"))
+            {
+                exeFileName = filename.Replace(".cpp", ".exe");
+                exeFilePath = workingFolder + "\\" + exeFileName;
+            }
+            
+            
             var compilerFolder = "C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VC\\bin\\";
             var milestoneInput = _db.Milestones.Where(x => model.MilestoneID == x.ID).Select(x => x.MilestoneInput1).SingleOrDefault();
 
@@ -146,16 +153,22 @@ namespace Mooshak2.Controllers
                 nextSubmission.Output = submission.Output;
 
                 string expectedOutput = _db.Milestones.Where(x => x.ID == nextSubmission.MilestoneID).Select(x => x.MilestoneOutput1).SingleOrDefault();
-                
-                if (submission.Output == expectedOutput)
+
+                if (submission.Compiled == false)
                 {
-                    nextSubmission.Status = "Accepted";
+                    nextSubmission.Status = "Compile Error";
                 }
                 else
                 {
-                    nextSubmission.Status = "Incorrect Input";
+                    if (submission.Output == expectedOutput)
+                    {
+                        nextSubmission.Status = "Accepted";
+                    }
+                    else
+                    {
+                        nextSubmission.Status = "Incorrect Output";
+                    }
                 }
-                 
 
                 models.Add(nextSubmission);
             }
