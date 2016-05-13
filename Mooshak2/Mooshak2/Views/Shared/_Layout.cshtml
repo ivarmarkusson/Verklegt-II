@@ -9,7 +9,7 @@
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse navbar-fixed-top" id="navbartop">
         <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -44,7 +44,7 @@
 
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-sm-3 col-md-2 sidebar">
+			<div class="col-sm-3 col-md-2 sidebar" id="navsidebar">
 				
 				<ul class="nav nav-sidebar">
 					@if (User.IsInRole("Administrator"))
@@ -92,5 +92,6 @@
 		@Scripts.Render("~/bundles/bootstrap")
 		@RenderSection("scripts", required: false)
         <script type="text/javascript" src="@Url.Content("~/Scripts/CreateAssignment.js")"></script>
+        <link rel="stylesheet" type="text/css" href="~/Content/Site.css">
 </body>
 </html>
