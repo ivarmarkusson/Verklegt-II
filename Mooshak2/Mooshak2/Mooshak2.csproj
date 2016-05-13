@@ -250,6 +250,10 @@
     <Compile Include="Migrations\201605130158233_inputoutput.Designer.cs">
       <DependentUpon>201605130158233_inputoutput.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605131305043_submissionlimit.cs" />
+    <Compile Include="Migrations\201605131305043_submissionlimit.Designer.cs">
+      <DependentUpon>201605131305043_submissionlimit.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entities\ApplicationUser.cs" />
     <Compile Include="Models\Entities\Assignment.cs" />
@@ -393,6 +397,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605130158233_inputoutput.resx">
       <DependentUpon>201605130158233_inputoutput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605131305043_submissionlimit.resx">
+      <DependentUpon>201605131305043_submissionlimit.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

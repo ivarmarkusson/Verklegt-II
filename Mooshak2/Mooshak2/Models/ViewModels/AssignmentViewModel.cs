@@ -17,6 +17,7 @@ namespace Mooshak2.Models.ViewModels
 		public string CourseName { get; set; }
 		public string MilestoneTitle { get; set; }
 		public double MilestonePercentage { get; set; }
+        public int MilestoneSubmissionLimit { get; set; }
         public string MilestoneInput1 { get; set; }
         public string MilestoneOutput1 { get; set; }
         public List<string> MilestonesTitles { get; set; }

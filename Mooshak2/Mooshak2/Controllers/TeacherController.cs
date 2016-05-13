@@ -129,6 +129,7 @@ namespace Mooshak2.Controllers
 					milestone.Percentage = model.MilestonePercentage;
                     milestone.MilestoneInput1 = model.MilestoneInput1;
                     milestone.MilestoneOutput1 = model.MilestoneOutput1;
+                    milestone.SubmissionLimit = model.MilestoneSubmissionLimit;
 
 					_db.Milestones.Add(milestone);
 					_db.SaveChanges();
@@ -167,6 +168,7 @@ namespace Mooshak2.Controllers
             newMilestone.Title = model.Title;
             newMilestone.MilestoneInput1 = model.MilestoneInput1;
             newMilestone.MilestoneOutput1 = model.MilestoneOutput1;
+            newMilestone.SubmissionLimit = model.SubmissionLimit;
 
             _db.Milestones.Add(newMilestone);
             _db.SaveChanges();
@@ -221,6 +223,9 @@ namespace Mooshak2.Controllers
 				model.Title = item.Title;
 				model.Percentage = item.Percentage;
 				model.Grade = item.Grade;
+                model.SubmissionLimit = item.SubmissionLimit;
+                model.MilestoneInput1 = item.MilestoneInput1;
+                model.MilestoneOutput1 = item.MilestoneOutput1;
 
 				milestones.Add(model);
 			}
