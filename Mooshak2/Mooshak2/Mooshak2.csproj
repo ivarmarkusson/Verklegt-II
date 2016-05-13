@@ -352,6 +352,7 @@
   <ItemGroup>
     <Folder Include="Content\Descriptions\" />
     <Folder Include="Content\Pictures\" />
+    <Folder Include="Content\Submissions\" />
     <Folder Include="Content\TextDocuments\" />
   </ItemGroup>
   <ItemGroup>
