@@ -218,49 +218,25 @@ namespace Mooshak2.Controllers
 
 		// GET: /Teacher/DeleteAssignment/
 		[Authorize(Roles = "Teacher")]
-		#region public ActionResult DeleteAssignment(string title)
-		public ActionResult DeleteAssignment(string milestoneTitle)
+		#region public ActionResult DeleteAssignment(int assignmentID)
+		public ActionResult DeleteMilestone(int milestoneID, int assignmentID)
 		{
+			
+			Milestone milestone = _db.Milestones.Where(x => x.ID == milestoneID).SingleOrDefault();
 
-			Milestone milestone = _db.Milestones.Where(x => x.Title == milestoneTitle).SingleOrDefault();
-			Assignment assignment = _db.Assignments.Where(x => x.ID == milestone.AssignmentID).SingleOrDefault();
+			_db.Milestones.Remove(milestone);
+			_db.SaveChanges();
 
-			int numberOfMilestones = _db.Milestones.Where(x => x.AssignmentID == assignment.ID).Count();
+			int milestoneCount = _db.Milestones.Where(x => x.AssignmentID == assignmentID).Count();
 
-			if (numberOfMilestones != 1)
+			if (milestoneCount == 0)
 			{
-				_db.Milestones.Remove(milestone);
-				_db.SaveChanges();
-			}
-			else
-			{
-				_db.Milestones.Remove(milestone);
-				_db.SaveChanges();
+				Assignment assignment = _db.Assignments.Where(x => x.ID == assignmentID).SingleOrDefault();
 
 				_db.Assignments.Remove(assignment);
 				_db.SaveChanges();
 			}
-
-
 			
-
-			//AssignmentViewModel theAssignmentViewModel = 
-			//List<Milestone> milestones = _db.Milestones.Where(x => x.AssignmentID == 
-
-
-
-			/*
-			AssignmentViewModel assignmentViewModel = getAssignmentByTitle(title);
-
-			if (assignmentViewModel != null)
-			{
-				// Hér þarf að bæta við logic
-				// til að eyða milestones þegar
-				// assignment er eytt
-
-				DeleteAssignment(assignmentViewModel);
-			}
-			*/
 			return Redirect("~/Teacher/Assignments");
 		}
 		#endregion
@@ -268,7 +244,31 @@ namespace Mooshak2.Controllers
 
 		// *** MILESTONES *** //
 
+		// GET: /Teacher/ViewMilestones/
+		[Authorize(Roles = "Teacher")]
+		#region public ActionResult DeleteMilestones(int assignmentID)
+		public ActionResult ViewMilestones(int assignmentID)
+		{
+			List<MilestoneViewModel> milestones = new List<MilestoneViewModel>();
 
+			var results = _db.Milestones.Where(x => x.AssignmentID == assignmentID).ToList();
+
+			foreach (var item in results)
+			{
+				MilestoneViewModel model = new MilestoneViewModel();
+
+				model.ID = item.ID;
+				model.AssignmentID = assignmentID;
+				model.Title = item.Title;
+				model.Percentage = item.Percentage;
+				model.Grade = item.Grade;
+
+				milestones.Add(model);
+			}
+
+			return View(milestones);
+		}
+		#endregion
 
 		// *** SUBMISSIONS *** //
 

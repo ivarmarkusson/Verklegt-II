@@ -45,8 +45,7 @@
 					<td>
                         @Html.ActionLink("Add", "AddMilestone", new { assignmentID = item.ID }) |
 						@Html.ActionLink("Edit", "EditAssignment", new { assignmentID = item.ID }) |
-						@Html.ActionLink("Delete", "DeleteAssignment", new { milestoneTitle = item.MilestoneTitle },
-							new { onclick = "return confirm('Are you sure you wish to delete this Assignment?');" })
+						@Html.ActionLink("Delete", "ViewMilestones", new { assignmentID = item.ID })			
 					</td>
 				</tr>
 			}

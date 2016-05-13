@@ -347,6 +347,7 @@
     <Content Include="Views\Student\SubmitSolution.cshtml" />
     <Content Include="Views\Student\YourSubmissions.cshtml" />
     <Content Include="Views\Teacher\AddMilestone.cshtml" />
+    <Content Include="Views\Teacher\ViewMilestones.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Descriptions\" />
