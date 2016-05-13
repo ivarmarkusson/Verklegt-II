@@ -20,5 +20,6 @@ namespace Mooshak2.Models.ViewModels
         public string MilestoneInput1 { get; set; }
         [Required(ErrorMessage = "Expected output is required!")]
         public string MilestoneOutput1 { get; set; }
+        public string AssignmentDescriptionFileName { get; set; }
     }
 }

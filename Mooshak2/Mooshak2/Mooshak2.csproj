@@ -258,6 +258,10 @@
     <Compile Include="Migrations\201605131445010_compilebooladded.Designer.cs">
       <DependentUpon>201605131445010_compilebooladded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605131559089_nullableIntInCourseID.cs" />
+    <Compile Include="Migrations\201605131559089_nullableIntInCourseID.Designer.cs">
+      <DependentUpon>201605131559089_nullableIntInCourseID.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entities\ApplicationUser.cs" />
     <Compile Include="Models\Entities\Assignment.cs" />
@@ -407,6 +411,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605131445010_compilebooladded.resx">
       <DependentUpon>201605131445010_compilebooladded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605131559089_nullableIntInCourseID.resx">
+      <DependentUpon>201605131559089_nullableIntInCourseID.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
