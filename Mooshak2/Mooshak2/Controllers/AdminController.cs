@@ -40,7 +40,7 @@ namespace Mooshak2.Controllers
 		//  *** USERS *** //
 
 
-		// GET: /Admin/Users
+		// GET: /Admin/Users with searchString
 		[Authorize(Roles = "Administrator")]
 		#region public ActionResult Users(string searchStringUserNameOrEmail, string currentFilter, int? page)
 		public ActionResult Users(string searchStringUserNameOrEmail, string currentFilter, int? page)
@@ -227,7 +227,7 @@ namespace Mooshak2.Controllers
 					return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 				}
 
-				UserViewModel udatedUserViewModel = UpdateDTOUser(model);
+				UserViewModel udatedUserViewModel = UpdateUserViewModel(model);
 
 
 				if (udatedUserViewModel == null)
@@ -646,6 +646,7 @@ namespace Mooshak2.Controllers
 
 		// GET: /Admin/ConnectsUsers/
 		[Authorize(Roles = "Administrator")]
+		#region public ActionResult ConnectUsers(int? courseID)
 		public ActionResult ConnectUsers(int? courseID)
 		{
 			List<UserViewModel> ViewModelUsers = new List<UserViewModel>();
@@ -668,9 +669,10 @@ namespace Mooshak2.Controllers
 
 			return View(ViewModelUsers);
 		}
+		#endregion
 
-
-		// GET: /Admin/ConnectsUsers/
+		// GET: /Admin/AddCourse/
+		#region public ActionResult AddToCourse(string userName, int courseID)
 		[Authorize(Roles = "Administrator")]
 		public ActionResult AddToCourse(string userName, int courseID)
 		{
@@ -685,12 +687,13 @@ namespace Mooshak2.Controllers
 			// Má laga seinna
 			return Redirect(url);
 		}
+		#endregion
 
 
 		// *** UTILITIES *** //
 
 
-		// Kommenta Kóða
+		// UserManager
 		#region public ApplicationUserManager UserManager
 		public ApplicationUserManager UserManager
 		{
@@ -707,7 +710,7 @@ namespace Mooshak2.Controllers
 		}
 		#endregion
 
-		// Kommenta Kóða
+		// RoleManager
 		#region public ApplicationRoleManager RoleManager
 		public ApplicationRoleManager RoleManager
 		{
@@ -724,7 +727,7 @@ namespace Mooshak2.Controllers
 		}
 		#endregion
 
-		// Kommenta Kóða
+		// Get All Roles SelectListITem
 		#region private List<SelectListItem> GetAllRolesAsSelectList()
 		private List<SelectListItem> GetAllRolesAsSelectList()
 		{
@@ -758,7 +761,7 @@ namespace Mooshak2.Controllers
 		}
 		#endregion
 
-		// Kommenta Kóða
+		// Get ViewModelCourse By Name
 		#region private CourseViewModel GetCourseByName(string name)
 		private CourseViewModel GetCourseByName(string name)
 		{
@@ -776,7 +779,7 @@ namespace Mooshak2.Controllers
 		}
 		#endregion
 
-		// Kommenta Kóða og breyta nöfnum á breytum
+		// Delete Course
 		#region private void DeleteCourse(CourseViewModel paramCourseViewModel)
 		private void DeleteCourse(CourseViewModel paramCourseViewModel)
 		{
@@ -792,8 +795,8 @@ namespace Mooshak2.Controllers
 		}
 		#endregion
 
-		// Kommenta Kóða og breyta nöfnum á breytum
-		#region private ExpandedUserDTO GetUser(string paramUserName)
+		// GetUser
+		#region private UserViewModel GetUser(string paramUserName)
 		private UserViewModel GetUser(string paramUserName)
 		{
 			UserViewModel user = new UserViewModel();
@@ -813,9 +816,9 @@ namespace Mooshak2.Controllers
 		}
 		#endregion
 
-		// Kommenta Kóða og breyta nöfnum á breytum
-		#region private UserViewModel UpdateDTOUser(UserViewModel model)
-		private UserViewModel UpdateDTOUser(UserViewModel model)
+		// Update User With UserViewModel Parameter
+		#region private UserViewModel UpdateUserViewModel(UserViewModel model)
+		private UserViewModel UpdateUserViewModel(UserViewModel model)
 		{
 			ApplicationUser result =
 				UserManager.FindByName(model.UserName);
@@ -865,12 +868,12 @@ namespace Mooshak2.Controllers
 		}
 		#endregion
 
-		// Kommenta Kóða og breyta nöfnum á breytum
-		#region private void DeleteUser(ExpandedUserDTO paramExpandedUserDTO)
-		private void DeleteUser(UserViewModel paramExpandedUserDTO)
+		// Delete User With UserViewModel Parameter
+		#region private void DeleteUser(UserViewModel userViewModel)
+		private void DeleteUser(UserViewModel userViewModel)
 		{
 			ApplicationUser user =
-				UserManager.FindByName(paramExpandedUserDTO.UserName);
+				UserManager.FindByName(userViewModel.UserName);
 
 			// If we could not find the user, throw an exception
 			if (user == null)
@@ -884,14 +887,14 @@ namespace Mooshak2.Controllers
 		}
 		#endregion
 
-		// Kommenta Kóða og breyta nöfnum á breytum
-		#region private UserAndRolesDTO GetUserAndRoles(string UserName)
+		// Get User And Roles ViewModel by UserName
+		#region private UserAndRolesViewModel GetUserAndRoles(string UserName)
 		private UserAndRolesViewModel GetUserAndRoles(string UserName)
 		{
 			// Go get the User
 			ApplicationUser user = UserManager.FindByName(UserName);
 
-			List<UserRoleViewModel> colUserRoleDTO =
+			List<UserRoleViewModel> listOfUserRoleViewModel =
 				(from objRole in UserManager.GetRoles(user.Id)
 				 select new UserRoleViewModel
 				 {
@@ -899,9 +902,9 @@ namespace Mooshak2.Controllers
 					 UserName = UserName
 				 }).ToList();
 
-			if (colUserRoleDTO.Count() == 0)
+			if (listOfUserRoleViewModel.Count() == 0)
 			{
-				colUserRoleDTO.Add(new UserRoleViewModel { RoleName = "No Roles Found" });
+				listOfUserRoleViewModel.Add(new UserRoleViewModel { RoleName = "No Roles Found" });
 			}
 
 			ViewBag.AddRole = new SelectList(RolesUserIsNotIn(UserName));
@@ -910,12 +913,12 @@ namespace Mooshak2.Controllers
 			UserAndRolesViewModel objUserAndRolesDTO =
 				new UserAndRolesViewModel();
 			objUserAndRolesDTO.UserName = UserName;
-			objUserAndRolesDTO.colUserRoleDTO = colUserRoleDTO;
+			objUserAndRolesDTO.colUserRoleDTO = listOfUserRoleViewModel;
 			return objUserAndRolesDTO;
 		}
 		#endregion
 
-		// Kommenta Kóða og breyta nöfnum á breytum
+		// Get List of Roles User is not in
 		#region private List<string> RolesUserIsNotIn(string UserName)
 		private List<string> RolesUserIsNotIn(string UserName)
 		{
@@ -931,17 +934,17 @@ namespace Mooshak2.Controllers
 				throw new Exception("Could not find the User");
 			}
 
-			var colRolesForUser = UserManager.GetRoles(user.Id).ToList();
-			var colRolesUserInNotIn = (from objRole in colAllRoles
-									   where !colRolesForUser.Contains(objRole)
+			var listOfRoles = UserManager.GetRoles(user.Id).ToList();
+			var ListOfRolesUserIsNotIn = (from objRole in colAllRoles
+									   where !listOfRoles.Contains(objRole)
 									   select objRole).ToList();
 
-			if (colRolesUserInNotIn.Count() == 0)
+			if (ListOfRolesUserIsNotIn.Count() == 0)
 			{
-				colRolesUserInNotIn.Add("No Roles Found");
+				ListOfRolesUserIsNotIn.Add("No Roles Found");
 			}
 
-			return colRolesUserInNotIn;
+			return ListOfRolesUserIsNotIn;
 		}
 		#endregion
 	}
