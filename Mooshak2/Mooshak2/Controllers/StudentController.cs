@@ -8,15 +8,25 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.Identity;
+
 namespace Mooshak2.Controllers
 {
     public class StudentController : Controller
     {
         private ApplicationDbContext _db = new ApplicationDbContext();
+		private ApplicationUserManager _userManager;
 
-        // GET: Student
-        [Authorize(Roles = "Student")]
-        public ActionResult SubmitSolution()
+
+		// *** SUBMISSIONS *** //
+
+
+		// GET: /Student/SubmitSolution
+		[Authorize(Roles = "Student")]
+		#region public ActionResult SubmitSolution()
+		public ActionResult SubmitSolution()
         {
             var milestones = _db.Milestones.ToList();
             
@@ -35,15 +45,21 @@ namespace Mooshak2.Controllers
 
             return View(models);
         }
+		#endregion
 
-        // POST: Student
-        [Authorize(Roles = "Student")]
+
+		// POST: /Student/SubmitSolution
+		[Authorize(Roles = "Student")]
         [HttpPost]
-        public ActionResult SubmitSolution(SubmissionViewModel model)
+		#region public ActionResult SubmitSolution(SubmissionViewModel model)
+		public ActionResult SubmitSolution(SubmissionViewModel model)
         {
-            Submission newSubmission = new Submission();
+			var userId = User.Identity.GetUserId();
+
+			Submission newSubmission = new Submission();
 
             newSubmission.MilestoneID = model.MilestoneID;
+			newSubmission.UserID = userId;
 
             HttpPostedFileBase file = model.SubmissionFile;
 
@@ -56,20 +72,25 @@ namespace Mooshak2.Controllers
                 newSubmission.SubmissionFileName = filename;
                 file.SaveAs(path);
             }
-
-
-            _db.Submissions.Add(newSubmission);
+			
+			_db.Submissions.Add(newSubmission);
             _db.SaveChanges();
         
-
             return Redirect("~/Student/YourSubmissions");
         }
+		#endregion
 
-
-        [Authorize(Roles = "Student")]
-        public ActionResult YourSubmissions()
+		// GET: /Student/YourSubmissions
+		[Authorize(Roles = "Student")]
+		#region public ActionResult YourSubmissions()
+		public ActionResult YourSubmissions()
         {
             return View();
         }
-    }
+		#endregion
+	}
+
+	// *** UTILITIES ***//
+
+
 }
