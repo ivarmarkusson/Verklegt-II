@@ -121,7 +121,23 @@ namespace Mooshak2.Controllers
 		#region public ActionResult YourSubmissions()
 		public ActionResult YourSubmissions()
         {
-            return View();
+            var userId = User.Identity.GetUserId();
+            List<Submission> studentsSubmissions = _db.Submissions.Where(x => x.UserID == userId).ToList();
+
+            List<SubmissionViewModel> models = new List<SubmissionViewModel>();
+
+            foreach(var submission in studentsSubmissions)
+            {
+                SubmissionViewModel nextSubmission = new SubmissionViewModel();
+
+                nextSubmission.MilestoneID = submission.MilestoneID;
+                nextSubmission.MilestoneTitle = _db.Milestones.Where(x => x.ID == nextSubmission.MilestoneID).Select(x => x.Title).SingleOrDefault();
+                nextSubmission.SubmissionFileName = submission.SubmissionFileName;
+
+                models.Add(nextSubmission);
+            }
+
+            return View(models);
         }
 		#endregion
 	}
