@@ -111,12 +111,16 @@ namespace Mooshak2.Controllers
                         //lines.add(processExe.StandardOutput.ReadLine());
                     }
                     newSubmission.Output = lines;
+                    newSubmission.Compiled = true;
                     processExe.StandardInput.Close();
-
-                    _db.Submissions.Add(newSubmission);
-                    _db.SaveChanges();
                 }
             }
+            else
+            {
+                newSubmission.Compiled = false;
+            }
+            _db.Submissions.Add(newSubmission);
+            _db.SaveChanges();
             return Redirect("~/Student/YourSubmissions");
         }
 		#endregion

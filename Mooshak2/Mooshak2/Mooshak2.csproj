@@ -254,6 +254,10 @@
     <Compile Include="Migrations\201605131305043_submissionlimit.Designer.cs">
       <DependentUpon>201605131305043_submissionlimit.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605131445010_compilebooladded.cs" />
+    <Compile Include="Migrations\201605131445010_compilebooladded.Designer.cs">
+      <DependentUpon>201605131445010_compilebooladded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Entities\ApplicationUser.cs" />
     <Compile Include="Models\Entities\Assignment.cs" />
@@ -400,6 +404,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605131305043_submissionlimit.resx">
       <DependentUpon>201605131305043_submissionlimit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605131445010_compilebooladded.resx">
+      <DependentUpon>201605131445010_compilebooladded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
