@@ -127,6 +127,8 @@ namespace Mooshak2.Controllers
 					milestone.Title = model.MilestoneTitle;
 					milestone.AssignmentID = assignment.ID;
 					milestone.Percentage = model.MilestonePercentage;
+                    milestone.MilestoneInput1 = model.MilestoneInput1;
+                    milestone.MilestoneOutput1 = model.MilestoneOutput1;
 
 					_db.Milestones.Add(milestone);
 					_db.SaveChanges();
@@ -163,6 +165,8 @@ namespace Mooshak2.Controllers
             newMilestone.AssignmentID = model.AssignmentID;
             newMilestone.Percentage = model.Percentage;
             newMilestone.Title = model.Title;
+            newMilestone.MilestoneInput1 = model.MilestoneInput1;
+            newMilestone.MilestoneOutput1 = model.MilestoneOutput1;
 
             _db.Milestones.Add(newMilestone);
             _db.SaveChanges();
