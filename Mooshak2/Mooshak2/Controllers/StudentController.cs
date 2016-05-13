@@ -20,7 +20,6 @@ namespace Mooshak2.Controllers
 
 		// *** SUBMISSIONS *** ///
 
-
 		// GET: /Student/SubmitSolution
 		[Authorize(Roles = "Student")]
 		#region public ActionResult SubmitSolution()
@@ -44,7 +43,6 @@ namespace Mooshak2.Controllers
             return View(models);
         }
 		#endregion
-
 
 		// POST: /Student/SubmitSolution
 		[Authorize(Roles = "Student")]
@@ -125,7 +123,7 @@ namespace Mooshak2.Controllers
         {
             var userId = User.Identity.GetUserId();
             List<Submission> studentsSubmissions = _db.Submissions.Where(x => x.UserID == userId).ToList();
-
+            //Try excception
             List<SubmissionViewModel> models = new List<SubmissionViewModel>();
 
             foreach(var submission in studentsSubmissions)
