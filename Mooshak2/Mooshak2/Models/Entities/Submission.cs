@@ -15,7 +15,6 @@ namespace Mooshak2.Models.Entities
         public string Input { set; get; }
         public string Output { set; get; }
         public bool Compiled { set; get; }
-
     }
 
 }

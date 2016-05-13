@@ -27,7 +27,7 @@
 			<tr>
 				<th>Username</th>
 				<th>Email</th>
-				<th></th>
+				<th>Course</th>
 				<th></th>
 			</tr>
 		</thead>
@@ -37,6 +37,7 @@
 			<tr>
 				<td>@Html.DisplayFor(modelItem => item.UserName)</td>
 				<td>@Html.DisplayFor(modelItem => item.Email)</td>
+				<td>@Html.DisplayFor(modelItem => item.CourseName)</td>
 				<td>@Html.DisplayFor(modelItem => item.LockoutEndDateUtc)</td>
 				<td>
 					@Html.ActionLink("Edit", "EditUser", new { UserName = item.UserName }) |
